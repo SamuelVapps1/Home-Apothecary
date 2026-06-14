@@ -1,0 +1,47 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Parchment Scale" subtitle="Warm cream surfaces for readable content areas" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 12px; font-family: var(--font-body); }
+    .row { display: flex; gap: 8px; height: 126px; }
+    .swatch { flex: 1; border-radius: 7px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.06); }
+    .color { height: 100%; width: 100%; }
+    .info { position: absolute; bottom: 0; left: 0; right: 0; padding: 7px 8px; background: rgba(26,46,26,0.75); }
+    .role { font-size: 8.5px; color: #c4b896; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+    .token { font-size: 8px; color: #c9973a; font-family: 'Courier New', monospace; margin-bottom: 1px; }
+    .hex { font-size: 9px; color: #f0e8d0; font-family: 'Courier New', monospace; }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div class="swatch">
+      <div class="color" style="background:#faf6ed"></div>
+      <div class="info"><div class="role">Near-white</div><div class="token">--color-parchment-50</div><div class="hex">#faf6ed</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#f5eedc"></div>
+      <div class="info"><div class="role">Main Parchment</div><div class="token">--bg-parchment</div><div class="hex">#f5eedc</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#ede0c4"></div>
+      <div class="info"><div class="role">Alt Parchment</div><div class="token">--bg-parchment-alt</div><div class="hex">#ede0c4</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#d9c9a3"></div>
+      <div class="info"><div class="role">Parchment 300</div><div class="token">--color-parchment-300</div><div class="hex">#d9c9a3</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#c4b896"></div>
+      <div class="info"><div class="role">Secondary Text</div><div class="token">--text-secondary</div><div class="hex">#c4b896</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#a89874"></div>
+      <div class="info"><div class="role">Muted Text</div><div class="token">--text-muted</div><div class="hex">#a89874</div></div>
+    </div>
+  </div>
+</body>
+</html>

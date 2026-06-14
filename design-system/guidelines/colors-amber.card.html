@@ -1,0 +1,47 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Amber / Gold" subtitle="Primary accent — candlelight, gold lettering, amber focus" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 12px; font-family: var(--font-body); }
+    .row { display: flex; gap: 8px; height: 126px; }
+    .swatch { flex: 1; border-radius: 7px; overflow: hidden; position: relative; }
+    .color { height: 100%; width: 100%; }
+    .info { position: absolute; bottom: 0; left: 0; right: 0; padding: 7px 8px; background: rgba(0,0,0,0.5); }
+    .role { font-size: 8.5px; color: #c4b896; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+    .token { font-size: 8px; color: #f0e8d0; font-family: 'Courier New', monospace; margin-bottom: 1px; }
+    .hex { font-size: 9px; color: #f0d89a; font-family: 'Courier New', monospace; }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div class="swatch">
+      <div class="color" style="background:#f0d89a"></div>
+      <div class="info"><div class="role">Amber 200</div><div class="token">--color-amber-200</div><div class="hex">#f0d89a</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#e4bf6a"></div>
+      <div class="info"><div class="role">Amber 300</div><div class="token">--color-amber-300</div><div class="hex">#e4bf6a</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#d4a843"></div>
+      <div class="info"><div class="role">Hover/Light</div><div class="token">--accent-primary-hover</div><div class="hex">#d4a843</div></div>
+    </div>
+    <div class="swatch" style="box-shadow:0 0 0 2px #c9973a">
+      <div class="color" style="background:#c9973a"></div>
+      <div class="info"><div class="role">★ Primary Accent</div><div class="token">--accent-primary</div><div class="hex">#c9973a</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#a67c2a"></div>
+      <div class="info"><div class="role">Amber 600</div><div class="token">--color-amber-600</div><div class="hex">#a67c2a</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#8a6220"></div>
+      <div class="info"><div class="role">Amber 700</div><div class="token">--color-amber-700</div><div class="hex">#8a6220</div></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!-- @dsCard group="UI Kit" viewport="375x812" name="Home Apothecary App" subtitle="Browse and Remedy Detail — interactive click-through" -->
+<!-- @startingPoint section="Mobile Apps" subtitle="Vintage herbal remedies PWA — Browse & Remedy Detail" viewport="375x812" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=375, initial-scale=1">
+  <title>Home Apothecary</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #0c130c; height: 100%; }
+    #root { width: 375px; height: 100vh; display: flex; flex-direction: column; overflow: hidden; margin: 0 auto; }
+    ::-webkit-scrollbar { display: none; }
+    input::placeholder { color: #a89874; opacity: 1; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+// ─── Inline design-system components ─────────────────────────────────────────
+
+function Button({ children, variant = 'primary', size = 'md', disabled = false, onClick, fullWidth = false }) {
+  const [hov, setHov] = React.useState(false);
+  const [press, setPress] = React.useState(false);
+  const base = { display:'inline-flex', alignItems:'center', justifyContent:'center', gap:6, cursor: disabled?'not-allowed':'pointer', opacity: disabled?0.5:1, transition:'all 0.18s ease', fontFamily:"'Lora',Georgia,serif", fontWeight:500, letterSpacing:'0.14em', textTransform:'uppercase', width: fullWidth?'100%':'auto', outline:'none', transform: press&&!disabled?'scale(0.97)':'scale(1)', border:'none', userSelect:'none' };
+  const sizes = { sm:{padding:'6px 14px',fontSize:'0.68rem',borderRadius:4}, md:{padding:'10px 22px',fontSize:'0.74rem',borderRadius:8}, lg:{padding:'13px 28px',fontSize:'0.82rem',borderRadius:8} };
+  const variants = {
+    primary:   { background: hov?'#d4a843':'#c9973a', color:'#1a1000', border:'1px solid #a67c2a', boxShadow: hov?'0 2px 10px rgba(201,151,58,0.35)':'none' },
+    secondary: { background: hov?'rgba(201,151,58,0.10)':'transparent', color:'#d4a843', border:'1px solid #c9973a' },
+    ghost:     { background: hov?'rgba(240,232,208,0.07)':'transparent', color:'#f0e8d0', border:'1px solid rgba(240,232,208,0.12)' },
+    danger:    { background: hov?'#a82020':'#8b1a1a', color:'#f5eedc', border:'1px solid #6b1010' },
+  };
+  return React.createElement('button', { style:{...base,...(sizes[size]||sizes.md),...(variants[variant]||variants.primary)}, disabled, onClick: disabled?undefined:onClick, onMouseEnter:()=>!disabled&&setHov(true), onMouseLeave:()=>{setHov(false);setPress(false);}, onMouseDown:()=>!disabled&&setPress(true), onMouseUp:()=>setPress(false) }, children);
+}
+
+function Badge({ children, variant = 'amber' }) {
+  const variants = {
+    amber:   { background:'rgba(201,151,58,0.17)',  color:'#d4a843', border:'1px solid rgba(201,151,58,0.35)' },
+    sage:    { background:'rgba(122,158,122,0.17)', color:'#94b894', border:'1px solid rgba(122,158,122,0.35)' },
+    safety:  { background:'#8b1a1a', color:'#f5eedc', border:'1px solid #a82020' },
+    neutral: { background:'rgba(240,232,208,0.08)', color:'#c4b896', border:'1px solid rgba(240,232,208,0.12)' },
+  };
+  return React.createElement('span', { style:{ display:'inline-flex', alignItems:'center', padding:'2px 9px', borderRadius:999, fontSize:'0.65rem', fontFamily:"'Lora',Georgia,serif", fontWeight:500, letterSpacing:'0.14em', textTransform:'uppercase', lineHeight:1.5, whiteSpace:'nowrap', ...(variants[variant]||variants.amber) } }, children);
+}
+
+function Tag({ children, active = false, onClick }) {
+  const [hov, setHov] = React.useState(false);
+  return React.createElement('button', { onClick, onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false), style:{ display:'inline-flex', alignItems:'center', gap:5, padding:'7px 15px', borderRadius:999, border:`1px solid ${active?'#c9973a':hov?'rgba(240,232,208,0.28)':'rgba(240,232,208,0.12)'}`, background: active?'rgba(201,151,58,0.14)':hov?'rgba(240,232,208,0.05)':'transparent', color: active?'#d4a843':hov?'#f0e8d0':'#c4b896', fontSize:'0.75rem', fontFamily:"'Lora',Georgia,serif", fontWeight:500, letterSpacing:'0.05em', cursor:'pointer', transition:'all 0.18s ease', whiteSpace:'nowrap', outline:'none', userSelect:'none' } }, children);
+}
+
+function InputField({ label, placeholder, type='text', value, onChange, leadingIcon, hint }) {
+  const [focused, setFocused] = React.useState(false);
+  return React.createElement('div', { style:{ display:'flex', flexDirection:'column', gap:6, width:'100%' } },
+    label && React.createElement('label', { style:{ fontFamily:"'Lora',Georgia,serif", fontSize:'0.75rem', fontWeight:500, color:'#c4b896', letterSpacing:'0.14em', textTransform:'uppercase' } }, label),
+    React.createElement('div', { style:{ position:'relative' } },
+      leadingIcon && React.createElement('div', { style:{ position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color: focused?'#c9973a':'#a89874', display:'flex', alignItems:'center', pointerEvents:'none', fontSize:16, transition:'color 0.18s ease' } }, leadingIcon),
+      React.createElement('input', { type, value, onChange, placeholder, onFocus:()=>setFocused(true), onBlur:()=>setFocused(false), style:{ width:'100%', padding: leadingIcon?'11px 14px 11px 40px':'11px 14px', background:'#1e2d1e', border:`1px solid ${focused?'#c9973a':'rgba(240,232,208,0.15)'}`, borderRadius:8, color:'#f0e8d0', fontFamily:"'Lora',Georgia,serif", fontSize:'1rem', outline:'none', boxShadow: focused?'0 0 0 3px rgba(201,151,58,0.30)':'inset 0 1px 4px rgba(0,0,0,0.35)', transition:'all 0.18s ease', boxSizing:'border-box' } })
+    ),
+    hint && React.createElement('p', { style:{ fontFamily:"'Lora',Georgia,serif", fontSize:'0.75rem', color:'#a89874', margin:0, fontStyle:'italic', lineHeight:1.55 } }, hint)
+  );
+}
+
+function RemedyCardUI({ herbName, latinName, summary, tags=[], hasWarning=false, onClick }) {
+  const [hov, setHov] = React.useState(false);
+  return React.createElement('div', { onClick, onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false), style:{ position:'relative', background: hov?'#243324':'#1e2d1e', borderRadius:12, borderTop:'2px solid #c9973a', padding:16, cursor: onClick?'pointer':'default', transition:'all 0.2s ease', boxShadow: hov?'0 4px 16px rgba(0,0,0,0.55)':'0 2px 8px rgba(0,0,0,0.45)', overflow:'hidden' } },
+    // watermark
+    React.createElement('div', { style:{ position:'absolute', bottom:-6, right:-2, width:72, height:88, opacity:0.065, pointerEvents:'none', color:'#f5eedc' } },
+      React.createElement('svg', { viewBox:'0 0 100 122', fill:'none', style:{width:'100%',height:'100%'} },
+        React.createElement('path', { d:'M50 8 C69 18 84 43 80 69 C76 93 62 110 50 114 C38 110 24 93 20 69 C16 43 31 18 50 8Z', stroke:'currentColor', strokeWidth:1.5, fill:'none' }),
+        React.createElement('line', { x1:50,y1:12,x2:50,y2:110,stroke:'currentColor',strokeWidth:0.9 }),
+        React.createElement('path', { d:'M50 30 Q41 35 35 44', stroke:'currentColor', strokeWidth:0.6, fill:'none' }),
+        React.createElement('path', { d:'M50 30 Q59 35 65 44', stroke:'currentColor', strokeWidth:0.6, fill:'none' })
+      )
+    ),
+    // header row
+    React.createElement('div', { style:{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:8 } },
+      React.createElement('div', { style:{flex:1} },
+        React.createElement('h3', { style:{ fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif", fontSize:'1.5rem', fontWeight:600, color:'#f0e8d0', lineHeight:1.2, margin:0, letterSpacing:'-0.01em' } }, herbName),
+        latinName && React.createElement('p', { style:{ fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif", fontSize:'0.875rem', fontStyle:'italic', color:'#c9973a', margin:'3px 0 0', lineHeight:1.2 } }, latinName)
+      ),
+      hasWarning && React.createElement('span', { style:{ display:'inline-flex', alignItems:'center', justifyContent:'center', width:28, height:28, borderRadius:'50%', background:'rgba(139,26,26,0.25)', border:'1px solid rgba(139,26,26,0.55)', fontSize:13, flexShrink:0, marginTop:2 } }, '⚠')
+    ),
+    summary && React.createElement('p', { style:{ fontFamily:"'Lora',Georgia,serif", fontSize:'0.875rem', color:'#c4b896', lineHeight:1.55, margin:'8px 0 0' } }, summary),
+    tags.length > 0 && React.createElement('div', { style:{ display:'flex', flexWrap:'wrap', gap:6, marginTop:10 } },
+      tags.map((t,i) => React.createElement('span', { key:i, style:{ padding:'3px 10px', borderRadius:999, background:'rgba(122,158,122,0.15)', border:'1px solid rgba(122,158,122,0.30)', color:'#94b894', fontSize:'0.68rem', fontFamily:"'Lora',Georgia,serif", letterSpacing:'0.08em', textTransform:'uppercase' } }, t))
+    )
+  );
+}
+
+function BottomNavUI({ items=[], activeIndex=0, onItemClick }) {
+  return React.createElement('nav', { style:{ display:'flex', alignItems:'stretch', background:'#111a11', borderTop:'1px solid rgba(240,232,208,0.12)', height:64, width:'100%', flexShrink:0 } },
+    items.map((item,i) => {
+      const active = i === activeIndex;
+      return React.createElement('button', { key:i, onClick:()=>onItemClick&&onItemClick(i), style:{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:3, background:'transparent', border:'none', borderTop:`2px solid ${active?'#c9973a':'transparent'}`, cursor:'pointer', padding:'8px 4px 6px', transition:'all 0.18s ease', outline:'none' } },
+        React.createElement('span', { style:{ fontSize:20, color: active?'#c9973a':'#a89874', lineHeight:1, transition:'color 0.18s ease', display:'flex', alignItems:'center', justifyContent:'center' } }, item.icon),
+        React.createElement('span', { style:{ fontFamily:"'Lora',Georgia,serif", fontSize:'0.58rem', color: active?'#d4a843':'#a89874', letterSpacing:'0.1em', textTransform:'uppercase', transition:'color 0.18s ease', lineHeight:1.2 } }, item.label)
+      );
+    })
+  );
+}
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const HERBS = [
+  { id:'chamomile', herbName:'Chamomile', latinName:'Matricaria recutita', summary:'A gentle flowering herb used for centuries to calm the nervous system and ease digestive discomfort.', tags:['Sleep','Digestive','Nervine'], hasWarning:false,
+    detail:{
+      badges:['Sleep','Digestive','Nervine'],
+      traditionalUse:'Chamomile has been prescribed by European herbalists since antiquity for its gentle calming effect on the nervous system and smooth-muscle relaxant properties. Valued for its mild apple-scented flavour and reliable action on digestive discomfort and sleeplessness.',
+      steps:[
+        {num:1,title:'Measure',text:'2 heaped teaspoons (3–5 g) of dried chamomile flowers per cup.'},
+        {num:2,title:'Infuse',text:'Pour freshly boiled water over the flowers. Cover and steep for 10 minutes to retain volatile oils.'},
+        {num:3,title:'Strain & Serve',text:'Strain into a warm cup. A small amount of raw honey may be stirred in after cooling slightly.'},
+      ],
+      ingredients:['Dried chamomile flowers (Matricaria recutita)','Freshly boiled water','Raw honey (optional)'],
+      dosage:'1–3 cups daily. For sleep: one cup 30 minutes before retiring. For digestive complaints: one cup after meals.',
+      safety:{
+        contraindications:'Do not use if you have a known allergy to plants in the Asteraceae/Compositae family (ragweed, chrysanthemums, marigolds, daisies).',
+        interactions:'May mildly potentiate the effects of sedative medications and warfarin-type blood thinners. Use with awareness if taking either.',
+        pregnancy:'Chamomile tea is generally considered safe in moderate dietary amounts. Avoid high-strength preparations without practitioner guidance.',
+      },
+      sources:['European Medicines Agency, Herbal Monograph on Matricaria recutita (2015)','British Herbal Pharmacopoeia (1983)','Blumenthal M. et al., The Complete German Commission E Monographs (1998)'],
+    }
+  },
+  { id:'ginger',     herbName:'Ginger',     latinName:'Zingiber officinale',    summary:'The warming root-rhizome beloved for its potent anti-nausea and anti-inflammatory properties.',   tags:['Digestive','Immunity','Pain'],  hasWarning:false },
+  { id:'elderberry', herbName:'Elderberry', latinName:'Sambucus nigra',         summary:'Dark berries rich in anthocyanins, traditionally used to shorten the duration of cold and flu.',     tags:['Immunity','Antiviral'],         hasWarning:true  },
+  { id:'valerian',   herbName:'Valerian',   latinName:'Valeriana officinalis',  summary:'A root with well-documented sedative compounds used for centuries for insomnia and anxiety.',        tags:['Sleep','Anxiety'],              hasWarning:true  },
+  { id:'peppermint', herbName:'Peppermint', latinName:'Mentha × piperita',      summary:'A cooling aromatic herb whose menthol content relaxes smooth muscle and eases tension headaches.',  tags:['Digestive','Pain','Skin'],      hasWarning:false },
+];
+
+const FILTERS = ['All','Digestive','Sleep','Immunity','Pain','Skin'];
+const NAV = [{icon:'⌂',label:'Home'},{icon:'◎',label:'Browse'},{icon:'◈',label:'Cabinet'},{icon:'⚙',label:'Settings'}];
+
+// ─── Botanical decorations ─────────────────────────────────────────────────────
+
+function LeafMark({ style }) {
+  return (
+    <div style={{ position:'absolute', color:'#f5eedc', pointerEvents:'none', ...style }}>
+      <svg viewBox="0 0 100 122" fill="none" style={{width:'100%',height:'100%'}}>
+        <path d="M50 8 C69 18 84 43 80 69 C76 93 62 110 50 114 C38 110 24 93 20 69 C16 43 31 18 50 8Z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+        <line x1="50" y1="12" x2="50" y2="110" stroke="currentColor" strokeWidth="0.9"/>
+        <path d="M50 30 Q41 35 35 44" stroke="currentColor" strokeWidth="0.6" fill="none"/>
+        <path d="M50 30 Q59 35 65 44" stroke="currentColor" strokeWidth="0.6" fill="none"/>
+        <path d="M50 48 Q40 54 33 63" stroke="currentColor" strokeWidth="0.6" fill="none"/>
+        <path d="M50 48 Q60 54 67 63" stroke="currentColor" strokeWidth="0.6" fill="none"/>
+      </svg>
+    </div>
+  );
+}
+
+function BotDiv() {
+  return (
+    <div style={{color:'#c9973a',lineHeight:0,margin:'4px 0'}}>
+      <svg viewBox="0 0 360 28" fill="none" style={{width:'100%',height:22}}>
+        <line x1="0" y1="14" x2="155" y2="14" stroke="currentColor" strokeWidth="0.75" opacity="0.45"/>
+        <line x1="205" y1="14" x2="360" y2="14" stroke="currentColor" strokeWidth="0.75" opacity="0.45"/>
+        <path d="M180 5 L186 14 L180 23 L174 14 Z" fill="currentColor" opacity="0.65"/>
+        <ellipse cx="148" cy="11" rx="8" ry="3.5" transform="rotate(-25 148 11)" stroke="currentColor" strokeWidth="0.9" fill="none" opacity="0.55"/>
+        <line x1="145" y1="8" x2="151" y2="16" stroke="currentColor" strokeWidth="0.5" opacity="0.4"/>
+        <ellipse cx="212" cy="11" rx="8" ry="3.5" transform="rotate(25 212 11)" stroke="currentColor" strokeWidth="0.9" fill="none" opacity="0.55"/>
+        <line x1="209" y1="8" x2="215" y2="16" stroke="currentColor" strokeWidth="0.5" opacity="0.4"/>
+      </svg>
+    </div>
+  );
+}
+
+function Parch({ children, style }) {
+  return <div style={{background:'#f5eedc',borderRadius:8,padding:'14px 16px',...style}}>{children}</div>;
+}
+
+// ─── Browse Screen ─────────────────────────────────────────────────────────────
+
+function BrowseScreen({ onSelect, navIndex, onNav }) {
+  const [filter, setFilter] = React.useState('All');
+  const [search, setSearch] = React.useState('');
+  const visible = HERBS.filter(h => {
+    const f = filter === 'All' || h.tags.includes(filter);
+    const s = !search || h.herbName.toLowerCase().includes(search.toLowerCase());
+    return f && s;
+  });
+  return (
+    <div style={{display:'flex',flexDirection:'column',height:'100%',background:'#1a2e1a'}}>
+      <header style={{background:'#111a11',borderBottom:'1px solid rgba(240,232,208,0.12)',padding:'0 16px',height:56,display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0}}>
+        <div style={{display:'flex',alignItems:'center',gap:9}}>
+          <span style={{color:'#c9973a',fontSize:20,lineHeight:1}}>⚗</span>
+          <h1 style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:19,fontWeight:700,color:'#f0e8d0',letterSpacing:'-0.01em',whiteSpace:'nowrap'}}>Home Apothecary</h1>
+        </div>
+        <span style={{color:'#a89874',fontSize:18,cursor:'pointer'}}>⊙</span>
+      </header>
+
+      <div style={{flex:1,overflowY:'auto',padding:'14px 16px'}}>
+        <div style={{marginBottom:12}}>
+          <InputField placeholder="Search remedies, herbs, symptoms…" leadingIcon="⌕" value={search} onChange={e=>setSearch(e.target.value)} />
+        </div>
+        <div style={{display:'flex',gap:8,overflowX:'auto',marginBottom:18,paddingBottom:4}}>
+          {FILTERS.map(f => <Tag key={f} active={filter===f} onClick={()=>setFilter(f)}>{f}</Tag>)}
+          <Tag onClick={()=>{}}>⚠ Safety</Tag>
+        </div>
+        <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,color:'#a89874',letterSpacing:'0.14em',textTransform:'uppercase',marginBottom:11}}>
+          {visible.length} {visible.length===1?'Remedy':'Remedies'}
+        </p>
+        <div style={{display:'flex',flexDirection:'column',gap:11}}>
+          {visible.map(h => <RemedyCardUI key={h.id} {...h} onClick={()=>onSelect(h)} />)}
+        </div>
+        <div style={{height:20}}/>
+      </div>
+
+      <BottomNavUI items={NAV} activeIndex={navIndex} onItemClick={onNav}/>
+    </div>
+  );
+}
+
+// ─── Remedy Detail Screen ──────────────────────────────────────────────────────
+
+function DetailScreen({ herb, onBack, navIndex, onNav }) {
+  const scrollRef = React.useRef(null);
+  React.useEffect(() => {
+    const saved = localStorage.getItem('ha-scroll-'+herb.id);
+    if (saved && scrollRef.current) scrollRef.current.scrollTop = parseInt(saved);
+  }, [herb.id]);
+  const d = herb.detail || {};
+
+  return (
+    <div style={{display:'flex',flexDirection:'column',height:'100%',background:'#1a2e1a'}}>
+      <header style={{background:'#111a11',borderBottom:'1px solid rgba(240,232,208,0.12)',padding:'0 16px',height:56,display:'flex',alignItems:'center',gap:10,flexShrink:0}}>
+        <button onClick={onBack} style={{background:'none',border:'none',color:'#c9973a',fontSize:22,cursor:'pointer',padding:4,lineHeight:1}}>←</button>
+        <span style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:18,fontWeight:600,color:'#f0e8d0',letterSpacing:'-0.01em'}}>{herb.herbName}</span>
+      </header>
+
+      <div ref={scrollRef} onScroll={e=>localStorage.setItem('ha-scroll-'+herb.id,e.target.scrollTop)} style={{flex:1,overflowY:'auto'}}>
+        {/* Hero */}
+        <div style={{background:'radial-gradient(ellipse at 50% 20%, #3d5c3d 0%, #111a11 75%)',padding:'40px 20px 34px',textAlign:'center',position:'relative',overflow:'hidden',borderBottom:'2px solid #c9973a'}}>
+          {[240,178,116].map((s,i)=>(
+            <div key={i} style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:s,height:s,borderRadius:'50%',border:`1px solid rgba(201,151,58,${0.09-i*0.025})`,pointerEvents:'none'}}/>
+          ))}
+          <LeafMark style={{top:'8%',right:'2%',width:70,height:85,opacity:0.07,transform:'rotate(20deg)'}}/>
+          <LeafMark style={{top:'25%',left:'-2%',width:58,height:70,opacity:0.06,transform:'rotate(-30deg)'}}/>
+          <LeafMark style={{bottom:'4%',right:'12%',width:50,height:62,opacity:0.06,transform:'rotate(40deg)'}}/>
+          <div style={{position:'relative',zIndex:1}}>
+            <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,letterSpacing:'0.2em',color:'#c9973a',textTransform:'uppercase',marginBottom:10}}>Traditional Remedy</p>
+            <h1 style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:52,fontWeight:700,color:'#f0e8d0',lineHeight:1,marginBottom:8,letterSpacing:'-0.02em'}}>{herb.herbName}</h1>
+            <p style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:17,fontStyle:'italic',color:'#c9973a'}}>{herb.latinName}</p>
+          </div>
+        </div>
+
+        <div style={{padding:'18px 16px',display:'flex',flexDirection:'column',gap:18}}>
+          {/* Badges */}
+          <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+            {(d.badges||herb.tags).map((b,i)=><Badge key={i} variant={i===0?'amber':i===(d.badges||herb.tags).length-1?'neutral':'sage'}>{b}</Badge>)}
+          </div>
+
+          <BotDiv/>
+
+          {/* Traditional Use */}
+          <Parch>
+            <h3 style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:17,fontWeight:600,color:'#2a1f0e',marginBottom:7}}>Traditional Use</h3>
+            <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:14,color:'#4a3520',lineHeight:1.72}}>{d.traditionalUse||'Select Chamomile from the browse screen to see full detail content.'}</p>
+          </Parch>
+
+          {/* Preparation steps */}
+          {d.steps && (
+            <div>
+              <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,color:'#a89874',letterSpacing:'0.14em',textTransform:'uppercase',marginBottom:10}}>Preparation</p>
+              <div style={{display:'flex',flexDirection:'column',gap:9}}>
+                {d.steps.map(step=>(
+                  <div key={step.num} style={{display:'flex',gap:10,alignItems:'flex-start'}}>
+                    <div style={{width:30,height:30,borderRadius:'50%',background:'#c9973a',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,fontFamily:"'Cormorant Garamond',Georgia,serif",fontSize:14,fontWeight:600,color:'#1a1000'}}>{step.num}</div>
+                    <Parch style={{flex:1,padding:'10px 13px'}}>
+                      <p style={{fontFamily:"'Cormorant Garamond',Georgia,serif",fontSize:14,fontWeight:600,color:'#2a1f0e',marginBottom:3}}>{step.title}</p>
+                      <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:13,color:'#4a3520',lineHeight:1.7}}>{step.text}</p>
+                    </Parch>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Ingredients */}
+          {d.ingredients && (
+            <Parch>
+              <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,color:'#4a3520',letterSpacing:'0.14em',textTransform:'uppercase',marginBottom:9}}>Ingredients</p>
+              {d.ingredients.map((ing,i)=>(
+                <div key={i} style={{display:'flex',gap:8,alignItems:'center',paddingBottom:i<d.ingredients.length-1?7:0,marginBottom:i<d.ingredients.length-1?7:0,borderBottom:i<d.ingredients.length-1?'1px solid #d9c9a3':'none'}}>
+                  <span style={{color:'#a67c2a',fontSize:12}}>✦</span>
+                  <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:13,color:'#4a3520',lineHeight:1.6}}>{ing}</p>
+                </div>
+              ))}
+            </Parch>
+          )}
+
+          {/* Dosage */}
+          {d.dosage && (
+            <div style={{background:'#f5eedc',borderRadius:8,padding:'13px 15px',borderLeft:'3px solid #c9973a'}}>
+              <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,color:'#a67c2a',letterSpacing:'0.14em',textTransform:'uppercase',marginBottom:5}}>Dosage Note</p>
+              <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:13,color:'#4a3520',lineHeight:1.72}}>{d.dosage}</p>
+              <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:11,color:'#6e6044',fontStyle:'italic',marginTop:5,lineHeight:1.6}}>Traditional range only — individual needs vary. Consult a qualified practitioner.</p>
+            </div>
+          )}
+
+          {/* Safety */}
+          {d.safety && (
+            <div style={{background:'#8b1a1a',borderRadius:12,padding:15,border:'1px solid #a82020'}}>
+              <div style={{display:'flex',alignItems:'center',gap:7,marginBottom:13}}>
+                <span style={{fontSize:17}}>⚠</span>
+                <h3 style={{fontFamily:"'Cormorant Garamond',Georgia,serif",fontSize:17,fontWeight:600,color:'#f5eedc',letterSpacing:'-0.01em'}}>Safety & Interactions</h3>
+              </div>
+              {[['Contraindications',d.safety.contraindications],['Drug Interactions',d.safety.interactions],['Pregnancy',d.safety.pregnancy]].map(([lbl,txt])=>txt&&(
+                <div key={lbl} style={{marginBottom:11}}>
+                  <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,letterSpacing:'0.12em',textTransform:'uppercase',color:'#c4b896',marginBottom:3}}>{lbl}</p>
+                  <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:13,color:'#f5eedc',lineHeight:1.65}}>{txt}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Sources */}
+          {d.sources && (
+            <div>
+              <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,color:'#a89874',letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:5}}>Sources</p>
+              {d.sources.map((s,i)=><p key={i} style={{fontFamily:"'Lora',Georgia,serif",fontSize:10,color:'#a89874',fontStyle:'italic',lineHeight:1.6,marginBottom:2}}>{s}</p>)}
+            </div>
+          )}
+
+          {/* Disclaimer */}
+          <div style={{borderTop:'1px solid rgba(240,232,208,0.12)',paddingTop:14}}>
+            <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:10,color:'#a89874',fontStyle:'italic',lineHeight:1.72,textWrap:'pretty'}}>
+              The information in this app is for educational purposes only and does not constitute medical advice. Herbal remedies may interact with medications and medical conditions. Always consult a qualified healthcare practitioner before use, especially if pregnant, nursing, or managing a health condition.
+            </p>
+          </div>
+          <div style={{height:8}}/>
+        </div>
+      </div>
+
+      <BottomNavUI items={NAV} activeIndex={navIndex} onItemClick={onNav}/>
+    </div>
+  );
+}
+
+// ─── App ───────────────────────────────────────────────────────────────────────
+
+function App() {
+  const [screen, setScreen] = React.useState('browse');
+  const [herb, setHerb] = React.useState(HERBS[0]);
+  const [navIndex, setNavIndex] = React.useState(0);
+  return screen === 'browse'
+    ? <BrowseScreen onSelect={h=>{setHerb(h);setScreen('detail');}} navIndex={navIndex} onNav={setNavIndex}/>
+    : <DetailScreen herb={herb} onBack={()=>setScreen('browse')} navIndex={navIndex} onNav={setNavIndex}/>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

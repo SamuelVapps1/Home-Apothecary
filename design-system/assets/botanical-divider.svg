@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 28" fill="none">
+  
+  <line x1="0" y1="14" x2="155" y2="14" stroke="currentColor" stroke-width="0.75" opacity="0.45"></line>
+  <line x1="205" y1="14" x2="360" y2="14" stroke="currentColor" stroke-width="0.75" opacity="0.45"></line>
+  
+  <path d="M180 5 L186 14 L180 23 L174 14 Z" fill="currentColor" opacity="0.65"></path>
+  
+  <ellipse cx="148" cy="11" rx="8" ry="3.5" transform="rotate(-25 148 11)" stroke="currentColor" stroke-width="0.9" fill="none" opacity="0.55"></ellipse>
+  <line x1="145" y1="8" x2="151" y2="16" stroke="currentColor" stroke-width="0.5" opacity="0.4"></line>
+  
+  <ellipse cx="212" cy="11" rx="8" ry="3.5" transform="rotate(25 212 11)" stroke="currentColor" stroke-width="0.9" fill="none" opacity="0.55"></ellipse>
+  <line x1="209" y1="8" x2="215" y2="16" stroke="currentColor" stroke-width="0.5" opacity="0.4"></line>
+</svg>

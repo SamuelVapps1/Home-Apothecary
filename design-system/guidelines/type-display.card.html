@@ -1,0 +1,39 @@
+<!-- @dsCard group="Type" viewport="700x250" name="Display Type" subtitle="Cormorant Garamond — herb names, app title, Latin names" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 20px 24px; font-family: var(--font-display); }
+    .row { display: flex; flex-direction: column; gap: 14px; }
+    .specimen { display: flex; align-items: baseline; gap: 16px; }
+    .meta { font-family: var(--font-body); font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; min-width: 130px; }
+    hr { border: none; border-top: 1px solid var(--border-subtle); margin: 4px 0; }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div class="specimen">
+      <div class="meta">App Title · 700 · 48px</div>
+      <div style="font-family:var(--font-display); font-size:48px; font-weight:700; color:var(--text-primary); line-height:1; letter-spacing:-0.02em;">Home Apothecary</div>
+    </div>
+    <hr>
+    <div class="specimen">
+      <div class="meta">Herb Name · 600 · 32px</div>
+      <div style="font-family:var(--font-display); font-size:32px; font-weight:600; color:var(--text-primary); line-height:1.1; letter-spacing:-0.01em;">Chamomile</div>
+    </div>
+    <hr>
+    <div class="specimen">
+      <div class="meta">Section Head · 600 · 20px</div>
+      <div style="font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--text-primary); line-height:1.2;">Traditional Use</div>
+    </div>
+    <hr>
+    <div class="specimen">
+      <div class="meta">Latin Name · 400i · 16px</div>
+      <div style="font-family:var(--font-display); font-size:16px; font-weight:400; font-style:italic; color:var(--color-amber-500); line-height:1.2;">Matricaria recutita</div>
+    </div>
+  </div>
+</body>
+</html>

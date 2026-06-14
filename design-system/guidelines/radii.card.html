@@ -1,0 +1,53 @@
+<!-- @dsCard group="Spacing" viewport="700x140" name="Border Radius" subtitle="radius-sm through radius-pill" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 18px 22px; font-family: var(--font-body); }
+    .row { display: flex; gap: 14px; align-items: center; height: 104px; }
+    .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .shape { width: 64px; height: 64px; background: var(--bg-card); border: 1.5px solid var(--color-amber-500); }
+    .lbl { font-size: 8.5px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .val { font-size: 9px; color: var(--color-amber-600); font-family: 'Courier New', monospace; }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div class="item">
+      <div class="shape" style="border-radius:0px"></div>
+      <div class="lbl">none</div><div class="val">0px</div>
+    </div>
+    <div class="item">
+      <div class="shape" style="border-radius:4px"></div>
+      <div class="lbl">sm</div><div class="val">4px</div>
+    </div>
+    <div class="item">
+      <div class="shape" style="border-radius:8px"></div>
+      <div class="lbl">md</div><div class="val">8px</div>
+    </div>
+    <div class="item">
+      <div class="shape" style="border-radius:12px"></div>
+      <div class="lbl">lg</div><div class="val">12px</div>
+    </div>
+    <div class="item">
+      <div class="shape" style="border-radius:16px"></div>
+      <div class="lbl">xl</div><div class="val">16px</div>
+    </div>
+    <div class="item">
+      <div class="shape" style="border-radius:24px"></div>
+      <div class="lbl">2xl</div><div class="val">24px</div>
+    </div>
+    <div class="item">
+      <div class="shape" style="border-radius:999px; width:96px; height:40px; margin-top:12px;"></div>
+      <div class="lbl">pill</div><div class="val">999px</div>
+    </div>
+    <div class="item">
+      <div class="shape" style="border-radius:50%; width:64px; height:64px;"></div>
+      <div class="lbl">full</div><div class="val">50%</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!-- @dsCard group="Colors" viewport="700x200" name="Text Colors" subtitle="Semantic text tokens on dark and parchment surfaces" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 14px 16px; font-family: var(--font-body); }
+    .cols { display: flex; gap: 14px; height: 172px; }
+    .col { flex: 1; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+    .dark-col { background: var(--bg-card); border: 1px solid var(--border-subtle); }
+    .light-col { background: var(--bg-parchment); }
+    .token-row { display: flex; flex-direction: column; gap: 1px; }
+    .sample { font-size: 13px; line-height: 1.3; }
+    .token-name { font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; font-family: 'Courier New', monospace; }
+  </style>
+</head>
+<body>
+  <div class="cols">
+    <div class="col dark-col">
+      <div class="token-row">
+        <span class="sample" style="color:#f0e8d0; font-family:var(--font-display); font-size:15px;">Herb name heading</span>
+        <span class="token-name" style="color:#c4b896">--text-primary · #f0e8d0</span>
+      </div>
+      <div class="token-row">
+        <span class="sample" style="color:#c4b896">Secondary body text and captions</span>
+        <span class="token-name" style="color:#a89874">--text-secondary · #c4b896</span>
+      </div>
+      <div class="token-row">
+        <span class="sample" style="color:#a89874; font-size:11px;">Muted hints, placeholders, timestamps</span>
+        <span class="token-name" style="color:#a89874">--text-muted · #a89874</span>
+      </div>
+      <div class="token-row">
+        <span class="sample" style="color:#c9973a; font-style:italic; font-family:var(--font-display);">Matricaria recutita</span>
+        <span class="token-name" style="color:#a89874">--text-latin / --text-accent · #c9973a</span>
+      </div>
+    </div>
+    <div class="col light-col">
+      <div class="token-row">
+        <span class="sample" style="color:#2a1f0e; font-family:var(--font-display); font-size:15px;">Section heading on parchment</span>
+        <span class="token-name" style="color:#4a3520">--text-on-parchment · #2a1f0e</span>
+      </div>
+      <div class="token-row">
+        <span class="sample" style="color:#4a3520; font-size:13px;">Body prose on cream background reads warm and clear at 15–16px.</span>
+        <span class="token-name" style="color:#6e6044">--text-on-parchment-2 · #4a3520</span>
+      </div>
+      <div class="token-row">
+        <span class="sample" style="color:#f5eedc; background:#8b1a1a; padding:2px 7px; border-radius:4px; font-size:12px;">Safety text on burgundy</span>
+        <span class="token-name" style="color:#4a3520">--text-safety · #f5eedc</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

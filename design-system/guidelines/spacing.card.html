@@ -1,0 +1,34 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Spacing Scale" subtitle="4px grid — space-1 through space-16" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 20px 24px; font-family: var(--font-body); }
+    .track { display: flex; gap: 0; align-items: flex-end; height: 120px; }
+    .step { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-right: 10px; }
+    .bar { background: var(--color-amber-600); border-radius: 2px 2px 0 0; width: 28px; opacity: 0.85; }
+    .lbl { font-size: 8px; color: var(--text-muted); letter-spacing: 0.08em; text-align: center; white-space: nowrap; }
+    .val { font-size: 8.5px; color: var(--color-amber-500); font-family: 'Courier New', monospace; }
+  </style>
+</head>
+<body>
+  <div class="track">
+    <div class="step"><div class="bar" style="height:4px"></div><div class="val">4px</div><div class="lbl">space-1</div></div>
+    <div class="step"><div class="bar" style="height:8px"></div><div class="val">8px</div><div class="lbl">space-2</div></div>
+    <div class="step"><div class="bar" style="height:12px"></div><div class="val">12px</div><div class="lbl">space-3</div></div>
+    <div class="step"><div class="bar" style="height:16px"></div><div class="val">16px</div><div class="lbl">space-4</div></div>
+    <div class="step"><div class="bar" style="height:20px"></div><div class="val">20px</div><div class="lbl">space-5</div></div>
+    <div class="step"><div class="bar" style="height:24px"></div><div class="val">24px</div><div class="lbl">space-6</div></div>
+    <div class="step"><div class="bar" style="height:32px"></div><div class="val">32px</div><div class="lbl">space-8</div></div>
+    <div class="step"><div class="bar" style="height:40px"></div><div class="val">40px</div><div class="lbl">space-10</div></div>
+    <div class="step"><div class="bar" style="height:44px"></div><div class="val">44px</div><div class="lbl">space-11</div></div>
+    <div class="step"><div class="bar" style="height:48px"></div><div class="val">48px</div><div class="lbl">space-12</div></div>
+    <div class="step"><div class="bar" style="height:56px"></div><div class="val">56px</div><div class="lbl">space-14</div></div>
+    <div class="step"><div class="bar" style="height:64px"></div><div class="val">64px</div><div class="lbl">space-16</div></div>
+    <div class="step"><div class="bar" style="height:80px"></div><div class="val">80px</div><div class="lbl">space-20</div></div>
+  </div>
+</body>
+</html>

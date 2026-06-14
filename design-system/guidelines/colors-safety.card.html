@@ -1,0 +1,47 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Burgundy / Safety" subtitle="Reserved exclusively for warnings, contraindications, and safety sections" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 12px; font-family: var(--font-body); }
+    .row { display: flex; gap: 8px; height: 126px; }
+    .swatch { flex: 1; border-radius: 7px; overflow: hidden; position: relative; }
+    .color { height: 100%; width: 100%; }
+    .info { position: absolute; bottom: 0; left: 0; right: 0; padding: 7px 8px; background: rgba(0,0,0,0.5); }
+    .role { font-size: 8.5px; color: #c4b896; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+    .token { font-size: 8px; color: #f0e8d0; font-family: 'Courier New', monospace; margin-bottom: 1px; }
+    .hex { font-size: 9px; color: #c04040; font-family: 'Courier New', monospace; }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div class="swatch">
+      <div class="color" style="background:#c04040"></div>
+      <div class="info"><div class="role">Burgundy 300</div><div class="token">--color-burgundy-300</div><div class="hex">#c04040</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#a82020"></div>
+      <div class="info"><div class="role">Burgundy 400</div><div class="token">--color-burgundy-400</div><div class="hex">#a82020</div></div>
+    </div>
+    <div class="swatch" style="box-shadow:0 0 0 2px #8b1a1a">
+      <div class="color" style="background:#8b1a1a"></div>
+      <div class="info"><div class="role">★ Safety BG</div><div class="token">--bg-safety</div><div class="hex">#8b1a1a</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#6b1010"></div>
+      <div class="info"><div class="role">Burgundy 600</div><div class="token">--color-burgundy-600</div><div class="hex">#6b1010</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#4d0b0b"></div>
+      <div class="info"><div class="role">Burgundy 700</div><div class="token">--color-burgundy-700</div><div class="hex">#4d0b0b</div></div>
+    </div>
+    <div class="swatch">
+      <div class="color" style="background:#330808"></div>
+      <div class="info"><div class="role">Burgundy 800</div><div class="token">--color-burgundy-800</div><div class="hex">#330808</div></div>
+    </div>
+  </div>
+</body>
+</html>

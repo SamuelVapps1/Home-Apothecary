@@ -1,0 +1,83 @@
+/* ============================================================
+   Home Apothecary — Spacing, Radius, Shadows & Z-Index
+   ============================================================ */
+
+:root {
+
+  /* ── Spacing Scale (4px base grid) ──────────────────── */
+  --space-0:   0;
+  --space-0-5: 0.125rem;   /*  2px */
+  --space-1:   0.25rem;    /*  4px */
+  --space-1-5: 0.375rem;   /*  6px */
+  --space-2:   0.5rem;     /*  8px */
+  --space-2-5: 0.625rem;   /* 10px */
+  --space-3:   0.75rem;    /* 12px */
+  --space-4:   1rem;       /* 16px */
+  --space-5:   1.25rem;    /* 20px */
+  --space-6:   1.5rem;     /* 24px */
+  --space-7:   1.75rem;    /* 28px */
+  --space-8:   2rem;       /* 32px */
+  --space-10:  2.5rem;     /* 40px */
+  --space-11:  2.75rem;    /* 44px */
+  --space-12:  3rem;       /* 48px */
+  --space-14:  3.5rem;     /* 56px */
+  --space-16:  4rem;       /* 64px */
+  --space-20:  5rem;       /* 80px */
+  --space-24:  6rem;       /* 96px */
+
+  /* ── Semantic Spacing Aliases ────────────────────────── */
+  --padding-screen:        var(--space-4);    /* Mobile horizontal page padding */
+  --padding-card:          var(--space-4);    /* Default card padding */
+  --padding-card-lg:       var(--space-5);    /* Larger card padding */
+  --padding-hero:          var(--space-6);    /* Hero section padding */
+  --gap-card-list:         var(--space-3);    /* Gap between remedy cards in list */
+  --gap-tags:              var(--space-2);    /* Gap between tag/badge pills */
+  --gap-sections:          var(--space-5);    /* Gap between content sections */
+
+  /* ── Component Heights ───────────────────────────────── */
+  --height-header:         3.5rem;   /* 56px */
+  --height-bottom-nav:     4rem;     /* 64px — touch-safe */
+  --height-search:         2.75rem;  /* 44px — minimum touch target */
+  --height-filter-row:     2rem;     /* 32px chip height */
+  --height-step-circle:    2rem;     /* 32px step number circle */
+
+  /* ── Border Radius ───────────────────────────────────── */
+  --radius-none: 0;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-pill: 999px;
+  --radius-full: 50%;
+
+  /* ── Border Widths ───────────────────────────────────── */
+  --border-thin:    1px;
+  --border-thick:   2px;
+  --border-accent:  3px;   /* Left accent on dosage/note cards */
+
+  /* ── Box Shadows ─────────────────────────────────────── */
+  /* Designed for dark surfaces — higher contrast shadows */
+  --shadow-none:  none;
+  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md:    0 2px 8px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-lg:    0 4px 16px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.35);
+  --shadow-xl:    0 8px 32px rgba(0, 0, 0, 0.60), 0 4px 12px rgba(0, 0, 0, 0.40);
+
+  /* Amber accent shadows */
+  --shadow-amber-glow:  0 0 0 2px rgba(201, 151, 58, 0.40);
+  --shadow-amber-focus: 0 0 0 3px rgba(201, 151, 58, 0.30), 0 0 10px rgba(201, 151, 58, 0.12);
+
+  /* Inset shadow for inputs */
+  --shadow-inner:       inset 0 1px 4px rgba(0, 0, 0, 0.35);
+
+  /* ── Z-Index Layers ──────────────────────────────────── */
+  --z-base:       0;   /* @kind other */
+  --z-card:       10;   /* @kind other */
+  --z-sticky:     50;   /* @kind other */
+  --z-header:     100;  /* @kind other */
+  --z-bottom-nav: 100;  /* @kind other */
+  --z-overlay:    200;  /* @kind other */
+  --z-modal:      300;  /* @kind other */
+  --z-toast:      400;  /* @kind other */
+}

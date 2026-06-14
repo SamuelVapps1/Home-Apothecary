@@ -1,0 +1,41 @@
+<!-- @dsCard group="Type" viewport="700x220" name="Body Type" subtitle="Lora — prose, labels, UI text, button labels" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-app); padding: 18px 24px; font-family: var(--font-body); }
+    .grid { display: flex; gap: 20px; height: 184px; }
+    .col { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .meta { font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="col">
+      <div>
+        <div class="meta">Body · Regular 400 · 16px · 1.75 leading</div>
+        <p style="font-family:var(--font-body); font-size:16px; font-weight:400; color:var(--text-secondary); line-height:1.75;">Chamomile has been prescribed by European herbalists since antiquity for its gentle calming effect on the nervous system and digestive tract.</p>
+      </div>
+      <div>
+        <div class="meta">Body sm · Regular 400 · 14px</div>
+        <p style="font-family:var(--font-body); font-size:14px; color:var(--text-secondary); line-height:1.6;">Steep for 10 minutes in freshly boiled water, covered.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <div class="meta">Medium 500 · 15px — on parchment</div>
+        <div style="background:var(--bg-parchment); border-radius:6px; padding:10px 12px;">
+          <p style="font-family:var(--font-body); font-size:15px; font-weight:500; color:var(--text-on-parchment); line-height:1.6;">Preparation steps and ingredient lists use Lora Medium on warm parchment backgrounds for maximum readability.</p>
+        </div>
+      </div>
+      <div>
+        <div class="meta">Italic · 400i · 12px · hint text</div>
+        <p style="font-family:var(--font-body); font-size:12px; font-style:italic; color:var(--text-muted); line-height:1.6;">Traditional dosage ranges only — consult a qualified practitioner before use.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
