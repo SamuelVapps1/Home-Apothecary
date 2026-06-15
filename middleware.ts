@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createMiddlewareCookieAdapter, createServerClient } from "@/lib/supabase/server";
 
-const protectedPrefixes = ["/browse", "/remedies", "/redeem"];
+const protectedPrefixes = ["/browse", "/remedies", "/redeem", "/account"];
 
 function isProtectedPath(pathname: string) {
   return protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));

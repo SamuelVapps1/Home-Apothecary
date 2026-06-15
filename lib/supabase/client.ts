@@ -1,6 +1,6 @@
 "use client";
 
-import { createBrowserClient as createSupabaseBrowserClient } from "@supabase/ssr/dist/module/createBrowserClient";
+import { createBrowserClient as createSupabaseBrowserClient } from "@supabase/ssr";
 import { getSupabaseConfig } from "./config";
 
 export function createBrowserClient() {

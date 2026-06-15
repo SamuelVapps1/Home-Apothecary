@@ -1,5 +1,6 @@
 import { getSupabaseConfig } from "@/lib/supabase/config";
 import { createServerClient } from "@/lib/supabase/server";
+import type { Profile } from "@/types";
 
 export async function getCurrentUser() {
   if (!getSupabaseConfig()) {
@@ -18,3 +19,29 @@ export async function getCurrentUser() {
   }
 }
 
+export async function getCurrentAccount() {
+  if (!getSupabaseConfig()) {
+    return null;
+  }
+
+  try {
+    const supabase = await createServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return null;
+    }
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("id,email,has_access,activated_at")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    return { user, profile: (profile as Profile | null) ?? null };
+  } catch {
+    return null;
+  }
+}

@@ -1,3 +1,5 @@
+import { getCurrentAccount } from "@/lib/auth";
+import { consumeRateLimit } from "@/lib/rate-limit";
 import { getSupabaseConfig } from "@/lib/supabase/config";
 import { createServerClient } from "@/lib/supabase/server";
 import { remedies as fallbackRemedies, getRemedyBySlug as getFallbackRemedyBySlug } from "@/lib/sample-remedies";
@@ -5,6 +7,13 @@ import type { Remedy } from "@/types";
 
 const remedySelect =
   "id,slug,name,name_latin,category,summary,traditional_use,preparation_steps,ingredients,symptoms,dosage_note,contraindications,interactions,pregnancy_warning,pregnancy_warning_text,allergy_note,sources,is_teaser";
+
+export class RateLimitError extends Error {
+  constructor(message = "Too many requests. Try again soon.") {
+    super(message);
+    this.name = "RateLimitError";
+  }
+}
 
 function normalizeRemedy(remedy: Remedy): Remedy {
   return {
@@ -22,22 +31,43 @@ function normalizeRemedies(remedies: Remedy[]) {
   return remedies.map(normalizeRemedy);
 }
 
-export async function getRemedies(): Promise<Remedy[]> {
+async function rateLimitContentFetch(accountId: string) {
+  const allowed = await consumeRateLimit({
+    bucket: `content:${accountId}`,
+    limit: 120,
+    windowSeconds: 60,
+  });
+
+  if (!allowed) {
+    throw new RateLimitError();
+  }
+}
+
+export async function getRemedies(): Promise<{ remedies: Remedy[]; rateLimited: boolean }> {
   if (!getSupabaseConfig()) {
-    return normalizeRemedies(fallbackRemedies);
+    return { remedies: normalizeRemedies(fallbackRemedies), rateLimited: false };
   }
 
   try {
+    const account = await getCurrentAccount();
+    if (account?.user) {
+      await rateLimitContentFetch(account.user.id);
+    }
+
     const supabase = await createServerClient();
     const { data, error } = await supabase.from("remedies").select(remedySelect).order("name");
 
     if (error || !data) {
-      return normalizeRemedies(fallbackRemedies);
+      return { remedies: normalizeRemedies(fallbackRemedies), rateLimited: false };
     }
 
-    return normalizeRemedies(data as Remedy[]);
-  } catch {
-    return normalizeRemedies(fallbackRemedies);
+    return { remedies: normalizeRemedies(data as Remedy[]), rateLimited: false };
+  } catch (error) {
+    if (error instanceof RateLimitError) {
+      return { remedies: [], rateLimited: true };
+    }
+
+    return { remedies: normalizeRemedies(fallbackRemedies), rateLimited: false };
   }
 }
 
@@ -47,6 +77,11 @@ export async function getRemedyBySlug(slug: string): Promise<Remedy | null> {
   }
 
   try {
+    const account = await getCurrentAccount();
+    if (account?.user) {
+      await rateLimitContentFetch(account.user.id);
+    }
+
     const supabase = await createServerClient();
     const { data, error } = await supabase
       .from("remedies")
@@ -59,8 +94,11 @@ export async function getRemedyBySlug(slug: string): Promise<Remedy | null> {
     }
 
     return normalizeRemedy(data as Remedy);
-  } catch {
+  } catch (error) {
+    if (error instanceof RateLimitError) {
+      throw error;
+    }
+
     return getFallbackRemedyBySlug(slug);
   }
 }
-

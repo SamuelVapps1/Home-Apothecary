@@ -151,7 +151,7 @@ export const remedies: Remedy[] = [
     id: "5",
     slug: "peppermint",
     name: "Peppermint",
-    name_latin: "Mentha × piperita",
+    name_latin: "Mentha x piperita",
     category: "Digestive",
     summary: "A cooling aromatic herb traditionally used after meals and for a clear, bright mouthfeel.",
     traditional_use:

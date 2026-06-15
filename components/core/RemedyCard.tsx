@@ -28,7 +28,7 @@ export function RemedyCard({
   const card = (
     <article
       className={cn(
-        "relative overflow-hidden rounded-lg border-t-2 border-t-[var(--color-amber-500)] bg-[var(--bg-card)] p-4 shadow-md transition-all duration-200 ease-in-out",
+        "relative h-full overflow-hidden rounded-lg border-t-2 border-t-[var(--color-amber-500)] bg-[var(--bg-card)] p-4 shadow-md transition-all duration-200 ease-in-out",
         hovered && "bg-[var(--bg-card-elevated)] shadow-lg",
         className,
       )}

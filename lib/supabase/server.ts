@@ -1,4 +1,4 @@
-import { createServerClient as createSupabaseServerClient } from "@supabase/ssr/dist/module/createServerClient";
+import { createServerClient as createSupabaseServerClient } from "@supabase/ssr";
 import type { CookieOptions } from "@supabase/ssr/dist/module/types";
 import { cookies } from "next/headers";
 import { getSupabaseConfig } from "./config";

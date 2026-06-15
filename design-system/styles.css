@@ -1,5 +1,5 @@
 /* ============================================================
-   Home Apothecary Design System — Global Styles Entry Point
+   Home Apothecary Design System - Global Styles Entry Point
    ============================================================
    Import ONLY this file in any consumer page or component.
    All token CSS files are transitively included.
@@ -9,3 +9,4 @@
 @import './tokens/colors.css';
 @import './tokens/typography.css';
 @import './tokens/spacing.css';
+

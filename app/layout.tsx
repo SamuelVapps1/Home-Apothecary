@@ -18,6 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+      </head>
       <body className="bg-[var(--bg-app)] text-[var(--text-primary)] antialiased">
         {children}
       </body>
