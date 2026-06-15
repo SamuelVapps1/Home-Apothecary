@@ -5,7 +5,7 @@ create schema if not exists private;
 create table if not exists public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   email text not null unique,
-  has_access boolean not null default true,
+  has_access boolean not null default false,
   activated_at timestamptz not null default now(),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -35,9 +35,21 @@ create table if not exists public.remedies (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.license_keys (
+  key text primary key,
+  lemonsqueezy_order_id text,
+  status text not null default 'valid' check (status in ('valid', 'redeemed')),
+  redeemed_by uuid references public.profiles (id) on delete set null,
+  redeemed_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create index if not exists remedies_category_idx on public.remedies (category);
 create index if not exists remedies_is_teaser_idx on public.remedies (is_teaser);
 create index if not exists remedies_published_at_idx on public.remedies (published_at desc);
+
+alter table public.license_keys enable row level security;
 
 alter table public.profiles enable row level security;
 alter table public.remedies enable row level security;
@@ -64,6 +76,11 @@ create trigger touch_remedies_updated_at
 before update on public.remedies
 for each row execute function private.touch_updated_at();
 
+drop trigger if exists touch_license_keys_updated_at on public.license_keys;
+create trigger touch_license_keys_updated_at
+before update on public.license_keys
+for each row execute function private.touch_updated_at();
+
 create or replace function private.handle_new_user()
 returns trigger
 language plpgsql
@@ -72,7 +89,7 @@ set search_path = public, private, auth
 as $$
 begin
   insert into public.profiles (id, email, has_access, activated_at)
-  values (new.id, coalesce(new.email, ''), true, now())
+  values (new.id, coalesce(new.email, ''), false, now())
   on conflict (id) do update
     set email = excluded.email,
         updated_at = now();
@@ -103,7 +120,9 @@ grant usage on schema private to anon, authenticated;
 grant execute on function private.current_user_has_access() to anon, authenticated;
 
 grant select on public.remedies to anon, authenticated;
-grant select, update on public.profiles to authenticated;
+grant select on public.profiles to authenticated;
+grant all on public.license_keys to service_role;
+revoke all on public.license_keys from anon, authenticated;
 
 drop policy if exists "profiles_select_own" on public.profiles;
 create policy "profiles_select_own"
@@ -111,14 +130,6 @@ on public.profiles
 for select
 to authenticated
 using (id = auth.uid());
-
-drop policy if exists "profiles_update_own" on public.profiles;
-create policy "profiles_update_own"
-on public.profiles
-for update
-to authenticated
-using (id = auth.uid())
-with check (id = auth.uid());
 
 drop policy if exists "remedies_select_access" on public.remedies;
 create policy "remedies_select_access"

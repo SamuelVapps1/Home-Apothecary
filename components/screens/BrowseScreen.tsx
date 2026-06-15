@@ -27,7 +27,7 @@ export function BrowseScreen({ remedies }: { remedies: Remedy[] }) {
 
       return matchesFilter && matchesSearch;
     });
-  }, [filter, search]);
+  }, [filter, search, remedies]);
 
   return (
     <div className="flex min-h-full flex-col bg-[var(--bg-app)]">
