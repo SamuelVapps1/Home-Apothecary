@@ -4,13 +4,13 @@ import { Badge } from "@/components/core/Badge";
 import { Input } from "@/components/core/Input";
 import { RemedyCard } from "@/components/core/RemedyCard";
 import { Tag } from "@/components/core/Tag";
-import { remedies } from "@/lib/sample-remedies";
+import type { Remedy } from "@/types";
 import { Search, ShieldAlert } from "lucide-react";
 import { useMemo, useState } from "react";
 
 const filters = ["All", "Digestive", "Sleep", "Immunity", "Pain", "Skin"];
 
-export function BrowseScreen() {
+export function BrowseScreen({ remedies }: { remedies: Remedy[] }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
 

@@ -1,10 +1,13 @@
 import { AppShell } from "@/components/screens/AppShell";
 import { BrowseScreen } from "@/components/screens/BrowseScreen";
+import { getRemedies } from "@/lib/remedies";
 
-export default function BrowsePage() {
+export default async function BrowsePage() {
+  const remedies = await getRemedies();
+
   return (
     <AppShell title="Home Apothecary" navIndex={1}>
-      <BrowseScreen />
+      <BrowseScreen remedies={remedies} />
     </AppShell>
   );
 }

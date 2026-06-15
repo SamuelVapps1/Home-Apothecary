@@ -2,7 +2,7 @@ import { Badge } from "@/components/core/Badge";
 import { Button } from "@/components/core/Button";
 import { AppShell } from "@/components/screens/AppShell";
 import { BotanicalDivider } from "@/components/decorative/BotanicalDivider";
-import { getRemedyBySlug } from "@/lib/sample-remedies";
+import { getRemedyBySlug } from "@/lib/remedies";
 import { notFound } from "next/navigation";
 
 export default async function RemedyDetailPage({
@@ -11,7 +11,7 @@ export default async function RemedyDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const remedy = getRemedyBySlug(slug);
+  const remedy = await getRemedyBySlug(slug);
 
   if (!remedy) {
     notFound();
