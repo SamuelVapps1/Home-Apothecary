@@ -9,6 +9,55 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 const contentDir = path.join(rootDir, "content");
 
+async function loadDotenvLocal() {
+  const envPath = path.join(rootDir, ".env.local");
+
+  let raw;
+  try {
+    raw = await readFile(envPath, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return;
+    }
+    throw error;
+  }
+
+  for (const line of raw.split(/\r?\n/)) {
+    const trimmed = line.trim();
+
+    if (!trimmed || trimmed.startsWith("#")) {
+      continue;
+    }
+
+    const cleaned = trimmed.startsWith("export ") ? trimmed.slice(7).trim() : trimmed;
+    const equalsIndex = cleaned.indexOf("=");
+
+    if (equalsIndex === -1) {
+      continue;
+    }
+
+    const key = cleaned.slice(0, equalsIndex).trim();
+    if (!key) {
+      continue;
+    }
+
+    let value = cleaned.slice(equalsIndex + 1).trim();
+
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    if (process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+}
+
+await loadDotenvLocal();
+
 const plantSchema = z.object({
   slug: z.string().min(1),
   common_name: z.string(),
