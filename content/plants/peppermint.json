@@ -4,11 +4,20 @@
   "name_latin": "Mentha x piperita",
   "family": "Lamiaceae",
   "parts_used": ["leaves"],
+  "traditional_use_summary": "",
+  "age_restrictions": [],
+  "max_duration_dose": [],
+  "toxicity_signals": [],
+  "hard_caution": false,
   "contraindications": [
     "Use caution if reflux tends to worsen with minty preparations."
   ],
   "interactions": [
-    "May alter how some antacids and reflux medicines feel subjectively."
+    {
+      "drug_or_class": "May alter how some antacids and reflux medicines feel subjectively.",
+      "mechanism": "",
+      "severity": "MINOR_THEORETICAL"
+    }
   ],
   "pregnancy_warning_text": "Pregnancy: ordinary culinary use is different from concentrated herbal use; keep preparations modest.",
   "allergy_note": "May irritate sensitive mouths or throats if overly concentrated.",

@@ -8,6 +8,11 @@
     "name_latin",
     "family",
     "parts_used",
+    "traditional_use_summary",
+    "age_restrictions",
+    "max_duration_dose",
+    "toxicity_signals",
+    "hard_caution",
     "contraindications",
     "interactions",
     "pregnancy_warning_text",
@@ -20,8 +25,28 @@
     "name_latin": { "type": "string" },
     "family": { "type": "string" },
     "parts_used": { "type": "array", "items": { "type": "string" } },
+    "traditional_use_summary": { "type": "string" },
+    "age_restrictions": { "type": "array", "items": { "type": "string" } },
+    "max_duration_dose": { "type": "array", "items": { "type": "string" } },
+    "toxicity_signals": { "type": "array", "items": { "type": "string" } },
+    "hard_caution": { "type": "boolean" },
     "contraindications": { "type": "array", "items": { "type": "string" } },
-    "interactions": { "type": "array", "items": { "type": "string" } },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["drug_or_class", "mechanism", "severity"],
+        "properties": {
+          "drug_or_class": { "type": "string" },
+          "mechanism": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["AVOID", "MAJOR", "MODERATE", "MINOR_THEORETICAL"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
     "pregnancy_warning_text": { "type": "string" },
     "allergy_note": { "type": "string" },
     "sources": { "type": "array", "items": { "type": "string" } }

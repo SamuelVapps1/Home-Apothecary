@@ -1,12 +1,43 @@
 import { contentPlants, contentRecipes } from "@/content";
-import type { Plant, PreparationType, RecipeDetail, RecipeComponent, Tier } from "@/types";
+import type {
+  InteractionSeverity,
+  Plant,
+  PlantInteraction,
+  PreparationType,
+  RecipeDetail,
+  RecipeComponent,
+  Tier,
+} from "@/types";
+
+function normalizeTier(value: unknown): Tier {
+  return value === "standard" || value === "premium" ? value : "free";
+}
 
 function normalizeStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
 }
 
-function normalizeTier(value: unknown): Tier {
-  return value === "standard" || value === "premium" ? value : "free";
+function normalizeInteraction(value: unknown): PlantInteraction | null {
+  if (!value || typeof value !== "object") {
+    return null;
+  }
+
+  const interaction = value as Partial<PlantInteraction>;
+
+  if (
+    typeof interaction.drug_or_class !== "string" ||
+    typeof interaction.mechanism !== "string" ||
+    !interaction.severity ||
+    !["AVOID", "MAJOR", "MODERATE", "MINOR_THEORETICAL"].includes(interaction.severity)
+  ) {
+    return null;
+  }
+
+  return {
+    drug_or_class: interaction.drug_or_class,
+    mechanism: interaction.mechanism,
+    severity: interaction.severity as InteractionSeverity,
+  };
 }
 
 function toPlantId(slug: string) {
@@ -29,8 +60,15 @@ function buildPlant(value: (typeof contentPlants)[number]): Plant {
     name_latin: value.name_latin,
     family: value.family,
     parts_used: normalizeStringArray(value.parts_used),
+    traditional_use_summary: typeof value.traditional_use_summary === "string" ? value.traditional_use_summary : "",
+    age_restrictions: normalizeStringArray(value.age_restrictions),
+    max_duration_dose: normalizeStringArray(value.max_duration_dose),
+    toxicity_signals: normalizeStringArray(value.toxicity_signals),
+    hard_caution: Boolean(value.hard_caution),
     contraindications: normalizeStringArray(value.contraindications),
-    interactions: normalizeStringArray(value.interactions),
+    interactions: Array.isArray(value.interactions)
+      ? value.interactions.map((item) => normalizeInteraction(item)).filter((item): item is PlantInteraction => item !== null)
+      : [],
     pregnancy_warning_text: value.pregnancy_warning_text ?? "",
     allergy_note: value.allergy_note ?? "",
     sources: normalizeStringArray(value.sources),

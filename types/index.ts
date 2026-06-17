@@ -16,9 +16,19 @@ export const preparationTypes = [
 
 export type PreparationType = (typeof preparationTypes)[number];
 
+export const interactionSeverities = ["AVOID", "MAJOR", "MODERATE", "MINOR_THEORETICAL"] as const;
+
+export type InteractionSeverity = (typeof interactionSeverities)[number];
+
 export interface PreparationStep {
   title: string;
   text: string;
+}
+
+export interface PlantInteraction {
+  drug_or_class: string;
+  mechanism: string;
+  severity: InteractionSeverity;
 }
 
 export interface Profile {
@@ -45,8 +55,13 @@ export interface Plant {
   name_latin: string;
   family: string;
   parts_used: string[];
+  traditional_use_summary: string;
+  age_restrictions: string[];
+  max_duration_dose: string[];
+  toxicity_signals: string[];
+  hard_caution: boolean;
   contraindications: string[];
-  interactions: string[];
+  interactions: PlantInteraction[];
   pregnancy_warning_text: string;
   allergy_note: string;
   sources: string[];

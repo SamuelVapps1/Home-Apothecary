@@ -4,11 +4,20 @@
   "name_latin": "Sambucus nigra",
   "family": "Adoxaceae",
   "parts_used": ["berries"],
+  "traditional_use_summary": "",
+  "age_restrictions": [],
+  "max_duration_dose": [],
+  "toxicity_signals": [],
+  "hard_caution": false,
   "contraindications": [
     "Do not use raw berries, leaves, or stems."
   ],
   "interactions": [
-    "Use caution alongside immunosuppressive medicines and diuretics."
+    {
+      "drug_or_class": "Use caution alongside immunosuppressive medicines and diuretics.",
+      "mechanism": "",
+      "severity": "MINOR_THEORETICAL"
+    }
   ],
   "pregnancy_warning_text": "Pregnancy: use only well-prepared, conservative servings and avoid raw material.",
   "allergy_note": "Stop use if digestive upset or rash appears.",

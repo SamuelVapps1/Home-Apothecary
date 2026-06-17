@@ -9,7 +9,32 @@ import gingerRecipe from "@/content/recipes/ginger.json";
 import peppermintRecipe from "@/content/recipes/peppermint.json";
 import valerianRecipe from "@/content/recipes/valerian.json";
 
-export type ContentPlantSeed = typeof chamomilePlant;
+export type ContentInteractionSeverity = "AVOID" | "MAJOR" | "MODERATE" | "MINOR_THEORETICAL";
+
+export interface ContentInteractionSeed {
+  drug_or_class: string;
+  mechanism: string;
+  severity: ContentInteractionSeverity;
+}
+
+export interface ContentPlantSeed {
+  slug: string;
+  common_name: string;
+  name_latin: string;
+  family: string;
+  parts_used: string[];
+  traditional_use_summary: string;
+  age_restrictions: string[];
+  max_duration_dose: string[];
+  toxicity_signals: string[];
+  hard_caution: boolean;
+  contraindications: string[];
+  interactions: ContentInteractionSeed[];
+  pregnancy_warning_text: string;
+  allergy_note: string;
+  sources: string[];
+}
+
 export type ContentRecipeComponentSeed = {
   plant_slug: string;
   part_used: string;
@@ -19,21 +44,36 @@ export type ContentRecipeComponentSeed = {
   prep_notes?: string;
   sort_order?: number;
 };
-export type ContentRecipeSeed = typeof chamomileRecipe;
+
+export interface ContentRecipeSeed {
+  slug: string;
+  title: string;
+  category: string;
+  summary: string;
+  preparation_type: "infusion" | "decoction" | "tincture" | "salve" | "extract" | "oil" | "syrup" | "powder" | "other";
+  traditional_use: string;
+  method_steps: Array<{ title: string; text: string }>;
+  dosage_note: string;
+  safety_notes: string[];
+  sources: string[];
+  is_free: boolean;
+  required_tier: "free" | "standard" | "premium";
+  components: ContentRecipeComponentSeed[];
+}
 
 export const contentPlants = [
-  chamomilePlant,
-  gingerPlant,
-  elderberryPlant,
-  valerianPlant,
-  peppermintPlant,
-] as const;
+  chamomilePlant as ContentPlantSeed,
+  gingerPlant as ContentPlantSeed,
+  elderberryPlant as ContentPlantSeed,
+  valerianPlant as ContentPlantSeed,
+  peppermintPlant as ContentPlantSeed,
+] satisfies ContentPlantSeed[];
 
 export const contentRecipes = [
-  chamomileRecipe,
-  gingerRecipe,
-  elderberryRecipe,
-  valerianRecipe,
-  peppermintRecipe,
-] as const;
+  chamomileRecipe as ContentRecipeSeed,
+  gingerRecipe as ContentRecipeSeed,
+  elderberryRecipe as ContentRecipeSeed,
+  valerianRecipe as ContentRecipeSeed,
+  peppermintRecipe as ContentRecipeSeed,
+] satisfies ContentRecipeSeed[];
 

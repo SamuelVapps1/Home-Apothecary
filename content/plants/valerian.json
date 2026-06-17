@@ -4,11 +4,20 @@
   "name_latin": "Valeriana officinalis",
   "family": "Caprifoliaceae",
   "parts_used": ["root"],
+  "traditional_use_summary": "",
+  "age_restrictions": [],
+  "max_duration_dose": [],
+  "toxicity_signals": [],
+  "hard_caution": false,
   "contraindications": [
     "Do not combine with other strongly sedating preparations without guidance."
   ],
   "interactions": [
-    "May intensify sedative medicines, alcohol, and certain sleep aids."
+    {
+      "drug_or_class": "May intensify sedative medicines, alcohol, and certain sleep aids.",
+      "mechanism": "",
+      "severity": "MINOR_THEORETICAL"
+    }
   ],
   "pregnancy_warning_text": "Pregnancy: avoid concentrated use unless a qualified practitioner approves it.",
   "allergy_note": "Earthy odor is normal; stop if adverse reactions appear.",

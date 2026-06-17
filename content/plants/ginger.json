@@ -4,11 +4,20 @@
   "name_latin": "Zingiber officinale",
   "family": "Zingiberaceae",
   "parts_used": ["root"],
+  "traditional_use_summary": "",
+  "age_restrictions": [],
+  "max_duration_dose": [],
+  "toxicity_signals": [],
+  "hard_caution": false,
   "contraindications": [
     "Use caution if you have a very sensitive stomach or active gastric irritation."
   ],
   "interactions": [
-    "May affect anticoagulants and blood-sugar-lowering medicines."
+    {
+      "drug_or_class": "May affect anticoagulants and blood-sugar-lowering medicines.",
+      "mechanism": "",
+      "severity": "MINOR_THEORETICAL"
+    }
   ],
   "pregnancy_warning_text": "Pregnancy: use only conservative dietary amounts and seek guidance for concentrated preparations.",
   "allergy_note": "Uncommon, but stop use if mouth or skin irritation appears.",
