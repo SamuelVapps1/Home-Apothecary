@@ -1,113 +1,92 @@
 /* ============================================================
-   Home Apothecary — Typography Tokens
-   ============================================================
-   Vintage apothecary two-font system:
-   Cormorant Garamond (display) + Lora (body)
+   Virtual Apothecary - Typography Tokens
    ============================================================ */
 
 :root {
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-body: "Lora", "Source Serif 4", Georgia, serif;
+  --font-label: "Lora", Georgia, serif;
+  --font-mono: "Courier New", Courier, monospace;
 
-  /* ── Font Families ───────────────────────────────────── */
-  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-body:    'Lora', 'Source Serif 4', Georgia, serif;
-  --font-label:   'Lora', Georgia, serif;   /* Small-caps labels */
-  --font-mono:    'Courier New', Courier, monospace; /* Rare — source/code only */
+  --text-2xs: 0.625rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
 
-  /* ── Size Scale (mobile-first, rem base 16px) ─────────── */
-  --text-2xs:  0.625rem;   /*  10px — fine print, disclaimer */
-  --text-xs:   0.75rem;    /*  12px — caption, source citation */
-  --text-sm:   0.875rem;   /*  14px — tag label, badge, hint */
-  --text-base: 1rem;       /*  16px — body default */
-  --text-lg:   1.125rem;   /*  18px — slightly larger body */
-  --text-xl:   1.25rem;    /*  20px — subheading */
-  --text-2xl:  1.5rem;     /*  24px — herb name on list card */
-  --text-3xl:  2rem;       /*  32px — section heading */
-  --text-4xl:  2.5rem;     /*  40px — hero herb name */
-  --text-5xl:  3rem;       /*  48px — app title header */
-  --text-6xl:  3.75rem;    /*  60px — decorative display */
-
-  /* ── Font Weights ────────────────────────────────────── */
-  --font-weight-light:    300;
-  --font-weight-regular:  400;
-  --font-weight-medium:   500;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
   --font-weight-semibold: 600;
-  --font-weight-bold:     700;
+  --font-weight-bold: 700;
 
-  /* ── Line Heights ────────────────────────────────────── */
-  --leading-none:    1;
-  --leading-tight:   1.2;
-  --leading-snug:    1.35;
-  --leading-normal:  1.55;
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
   --leading-relaxed: 1.75;
-  --leading-loose:   2;
+  --leading-loose: 2;
 
-  /* ── Letter Spacing ──────────────────────────────────── */
-  --tracking-tight:   -0.02em;
-  --tracking-normal:   0em;
-  --tracking-wide:     0.05em;
-  --tracking-wider:    0.08em;
-  --tracking-widest:   0.14em;   /* Category labels, button text */
-  --tracking-display: -0.01em;   /* Large display type — slightly tighter */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.08em;
+  --tracking-widest: 0.14em;
+  --tracking-display: -0.01em;
 
-  /* ── Composite Semantic Styles ───────────────────────── */
-
-  /* App title in header */
-  --type-app-title-family:  var(--font-display);
-  --type-app-title-size:    var(--text-3xl);
-  --type-app-title-weight:  var(--font-weight-bold);
+  --type-app-title-family: var(--font-display);
+  --type-app-title-size: var(--text-3xl);
+  --type-app-title-weight: var(--font-weight-bold);
   --type-app-title-leading: var(--leading-tight);
   --type-app-title-tracking: var(--tracking-display);
 
-  /* Herb name on remedy card */
-  --type-herb-name-family:  var(--font-display);
-  --type-herb-name-size:    var(--text-2xl);
-  --type-herb-name-weight:  var(--font-weight-semibold);
+  --type-herb-name-family: var(--font-display);
+  --type-herb-name-size: var(--text-2xl);
+  --type-herb-name-weight: var(--font-weight-semibold);
   --type-herb-name-leading: var(--leading-tight);
 
-  /* Hero herb name (detail screen) */
-  --type-hero-name-family:  var(--font-display);
-  --type-hero-name-size:    var(--text-4xl);
-  --type-hero-name-weight:  var(--font-weight-bold);
+  --type-hero-name-family: var(--font-display);
+  --type-hero-name-size: var(--text-4xl);
+  --type-hero-name-weight: var(--font-weight-bold);
   --type-hero-name-leading: var(--leading-tight);
 
-  /* Latin / botanical name */
-  --type-latin-family:   var(--font-display);
-  --type-latin-size:     var(--text-base);
-  --type-latin-style:    italic;
-  --type-latin-weight:   var(--font-weight-regular);
-  --type-latin-color:    var(--text-latin);
+  --type-latin-family: var(--font-display);
+  --type-latin-size: var(--text-base);
+  --type-latin-style: italic;
+  --type-latin-weight: var(--font-weight-regular);
+  --type-latin-color: var(--text-latin);
 
-  /* Section heading (on parchment content cards) */
-  --type-section-family:  var(--font-display);
-  --type-section-size:    var(--text-xl);
-  --type-section-weight:  var(--font-weight-semibold);
+  --type-section-family: var(--font-display);
+  --type-section-size: var(--text-xl);
+  --type-section-weight: var(--font-weight-semibold);
   --type-section-leading: var(--leading-snug);
 
-  /* Body prose (on parchment) */
-  --type-body-family:  var(--font-body);
-  --type-body-size:    var(--text-base);
-  --type-body-weight:  var(--font-weight-regular);
+  --type-body-family: var(--font-body);
+  --type-body-size: var(--text-base);
+  --type-body-weight: var(--font-weight-regular);
   --type-body-leading: var(--leading-relaxed);
 
-  /* Category / filter label */
-  --type-label-family:   var(--font-label);
-  --type-label-size:     var(--text-xs);
-  --type-label-weight:   var(--font-weight-medium);
+  --type-label-family: var(--font-label);
+  --type-label-size: var(--text-xs);
+  --type-label-weight: var(--font-weight-medium);
   --type-label-tracking: var(--tracking-widest);
 
-  /* Button text */
-  --type-button-family:   var(--font-body);
+  --type-button-family: var(--font-body);
   --type-button-tracking: var(--tracking-widest);
-  --type-button-weight:   var(--font-weight-medium);
+  --type-button-weight: var(--font-weight-medium);
 
-  /* Step number in amber circle */
-  --type-step-num-family:  var(--font-display);
-  --type-step-num-size:    var(--text-base);
-  --type-step-num-weight:  var(--font-weight-semibold);
+  --type-step-num-family: var(--font-display);
+  --type-step-num-size: var(--text-base);
+  --type-step-num-weight: var(--font-weight-semibold);
 
-  /* Source / disclaimer */
-  --type-disclaimer-family:  var(--font-body);
-  --type-disclaimer-size:    var(--text-xs);
-  --type-disclaimer-style:   italic;
+  --type-disclaimer-family: var(--font-body);
+  --type-disclaimer-size: var(--text-xs);
+  --type-disclaimer-style: italic;
   --type-disclaimer-leading: var(--leading-relaxed);
 }

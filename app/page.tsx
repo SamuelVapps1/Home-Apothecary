@@ -22,10 +22,10 @@ export default async function HomePage() {
             <BrandMark className="h-7 w-7 shrink-0" />
             <div>
               <p className="m-0 font-body text-xs uppercase tracking-widest text-[var(--text-muted)]">
-                Home Apothecary
+                Virtual Apothecary
               </p>
               <h1 className="m-0 font-display text-4xl font-bold leading-tight tracking-display text-[var(--text-primary)]">
-                Traditional remedies, carefully gated.
+                Traditional recipes, carefully gated.
               </h1>
             </div>
           </Link>
@@ -45,7 +45,7 @@ export default async function HomePage() {
 
         <p className="m-0 max-w-prose font-body text-base leading-relaxed text-[var(--text-secondary)]">
           Educational only, not medical advice. Browse a warm, mobile-first library of herbal
-          remedies with prominent safety warnings and purchase-gated full content.
+          recipes with prominent safety warnings and purchase-gated full content.
         </p>
 
         <div className="flex flex-wrap gap-2">
@@ -97,7 +97,7 @@ export default async function HomePage() {
           </p>
           <ul className="mt-3 list-disc space-y-2 pl-5 font-body text-sm leading-relaxed text-[var(--text-secondary)] marker:text-[var(--color-amber-400)]">
             <li>Traditional-use framing only, never cure claims.</li>
-            <li>Full remedy content stays server-gated behind access.</li>
+            <li>Full recipe content stays server-gated behind access.</li>
             <li>Safety information is always visible and prominent.</li>
           </ul>
         </section>

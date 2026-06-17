@@ -3,9 +3,9 @@ import "./globals.css";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Home Apothecary",
-  description: "A mobile-first paid PWA for traditional herbal remedies.",
-  applicationName: "Home Apothecary",
+  title: "Virtual Apothecary",
+  description: "A mobile-first paid PWA for traditional herbal recipes.",
+  applicationName: "Virtual Apothecary",
   formatDetection: {
     telephone: false,
   },

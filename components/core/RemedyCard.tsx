@@ -7,7 +7,19 @@ import { AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-export function RemedyCard({
+type RecipeCardProps = {
+  title?: string;
+  herbName?: string;
+  latinName?: string;
+  summary?: string;
+  tags?: string[];
+  hasWarning?: boolean;
+  href?: string;
+  className?: string;
+};
+
+export function RecipeCard({
+  title,
   herbName,
   latinName,
   summary,
@@ -15,16 +27,9 @@ export function RemedyCard({
   hasWarning = false,
   href,
   className,
-}: {
-  herbName: string;
-  latinName?: string;
-  summary?: string;
-  tags?: string[];
-  hasWarning?: boolean;
-  href?: string;
-  className?: string;
-}) {
+}: RecipeCardProps) {
   const [hovered, setHovered] = useState(false);
+  const cardTitle = title ?? herbName ?? "";
   const card = (
     <article
       className={cn(
@@ -43,7 +48,7 @@ export function RemedyCard({
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <h3 className="m-0 font-display text-2xl font-semibold leading-tight tracking-display text-[var(--text-primary)]">
-            {herbName}
+            {cardTitle}
           </h3>
           {latinName ? (
             <p className="m-0 mt-0.5 font-display text-sm italic leading-tight text-[var(--text-latin)]">
@@ -86,3 +91,5 @@ export function RemedyCard({
 
   return card;
 }
+
+export const RemedyCard = RecipeCard;

@@ -1,5 +1,5 @@
 /* ============================================================
-   Home Apothecary — Color Tokens
+   Virtual Apothecary - Color Tokens
    ============================================================
    Raw palette scale + semantic aliases.
    Named after the visual world of the apothecary:
@@ -8,101 +8,84 @@
    ============================================================ */
 
 :root {
-
-  /* ── Forest Green Scale ──────────────────────────────── */
-  /* The dark backbone of the app — old wood, dark glass jars */
   --color-forest-950: #111a11;
-  --color-forest-900: #1a2e1a;   /* App background */
+  --color-forest-900: #1a2e1a;
   --color-forest-850: #1c2f1c;
-  --color-forest-800: #1e2d1e;   /* Card surface */
-  --color-forest-750: #243324;   /* Elevated card / hover */
+  --color-forest-800: #1e2d1e;
+  --color-forest-750: #243324;
   --color-forest-700: #2e3f2e;
   --color-forest-600: #3d5c3d;
   --color-forest-500: #4e7a4e;
   --color-forest-400: #6a9e6a;
   --color-forest-300: #8cbf8c;
 
-  /* ── Parchment Scale ─────────────────────────────────── */
-  /* Warm cream for readable content areas — aged paper, candle-lit pages */
-  --color-parchment-50:  #faf6ed;
-  --color-parchment-100: #f5eedc;   /* Main parchment surface */
-  --color-parchment-200: #ede0c4;   /* Alternate parchment */
+  --color-parchment-50: #faf6ed;
+  --color-parchment-100: #f5eedc;
+  --color-parchment-200: #ede0c4;
   --color-parchment-300: #d9c9a3;
-  --color-parchment-400: #c4b896;   /* Secondary text on dark */
+  --color-parchment-400: #c4b896;
   --color-parchment-500: #a89874;
   --color-parchment-600: #8a7a58;
   --color-parchment-700: #6e6044;
 
-  /* ── Amber / Gold Scale ──────────────────────────────── */
-  /* Candlelight, gold leaf lettering, amber glass jars */
   --color-amber-200: #f0d89a;
   --color-amber-300: #e4bf6a;
-  --color-amber-400: #d4a843;   /* Hover / lighter accent */
-  --color-amber-500: #c9973a;   /* Primary accent */
+  --color-amber-400: #d4a843;
+  --color-amber-500: #c9973a;
   --color-amber-600: #a67c2a;
   --color-amber-700: #8a6220;
   --color-amber-800: #6e4c18;
 
-  /* ── Sage Green Scale ────────────────────────────────── */
-  /* Dried herbs, pressed leaves, secondary category color */
   --color-sage-200: #aacfaa;
   --color-sage-300: #94b894;
-  --color-sage-400: #7a9e7a;    /* Secondary accent */
+  --color-sage-400: #7a9e7a;
   --color-sage-500: #5a7a5a;
   --color-sage-600: #3d5a3d;
   --color-sage-700: #28402a;
 
-  /* ── Burgundy / Safety Scale ─────────────────────────── */
-  /* Reserved exclusively for safety warnings and contraindications */
   --color-burgundy-300: #c04040;
   --color-burgundy-400: #a82020;
-  --color-burgundy-500: #8b1a1a;   /* Safety background */
+  --color-burgundy-500: #8b1a1a;
   --color-burgundy-600: #6b1010;
   --color-burgundy-700: #4d0b0b;
   --color-burgundy-800: #330808;
 
+  --bg-app: var(--color-forest-900);
+  --bg-card: var(--color-forest-800);
+  --bg-card-elevated: var(--color-forest-750);
+  --bg-card-hover: var(--color-forest-750);
+  --bg-parchment: var(--color-parchment-100);
+  --bg-parchment-alt: var(--color-parchment-200);
+  --bg-safety: var(--color-burgundy-500);
+  --bg-header: var(--color-forest-950);
+  --bg-bottom-nav: var(--color-forest-950);
+  --bg-overlay: rgba(17, 26, 17, 0.85);
+  --bg-input: var(--color-forest-800);
+  --bg-step-circle: var(--color-amber-500);
 
-  /* ── Semantic: Backgrounds ───────────────────────────── */
-  --bg-app:              var(--color-forest-900);
-  --bg-card:             var(--color-forest-800);
-  --bg-card-elevated:    var(--color-forest-750);
-  --bg-card-hover:       var(--color-forest-750);
-  --bg-parchment:        var(--color-parchment-100);
-  --bg-parchment-alt:    var(--color-parchment-200);
-  --bg-safety:           var(--color-burgundy-500);
-  --bg-header:           var(--color-forest-950);
-  --bg-bottom-nav:       var(--color-forest-950);
-  --bg-overlay:          rgba(17, 26, 17, 0.85);
-  --bg-input:            var(--color-forest-800);
-  --bg-step-circle:      var(--color-amber-500);
+  --text-primary: #f0e8d0;
+  --text-secondary: var(--color-parchment-400);
+  --text-muted: var(--color-parchment-500);
+  --text-accent: var(--color-amber-500);
+  --text-accent-light: var(--color-amber-400);
+  --text-latin: var(--color-amber-500);
+  --text-on-parchment: #2a1f0e;
+  --text-on-parchment-2: #4a3520;
+  --text-safety: var(--color-parchment-100);
+  --text-on-amber: #1a1000;
 
-  /* ── Semantic: Text ──────────────────────────────────── */
-  --text-primary:        #f0e8d0;               /* Warm off-white — NOT pure white */
-  --text-secondary:      var(--color-parchment-400);
-  --text-muted:          var(--color-parchment-500);
-  --text-accent:         var(--color-amber-500);
-  --text-accent-light:   var(--color-amber-400);
-  --text-latin:          var(--color-amber-500); /* Italic Latin herb names */
-  --text-on-parchment:   #2a1f0e;               /* Dark text on cream bg */
-  --text-on-parchment-2: #4a3520;               /* Softer dark on cream */
-  --text-safety:         var(--color-parchment-100); /* On burgundy bg */
-  --text-on-amber:       #1a1000;               /* On amber button fill */
+  --border-card-top: var(--color-amber-500);
+  --border-subtle: rgba(240, 232, 208, 0.12);
+  --border-amber: rgba(201, 151, 58, 0.4);
+  --border-parchment: var(--color-parchment-300);
+  --border-safety: var(--color-burgundy-400);
+  --border-input: rgba(240, 232, 208, 0.15);
+  --border-input-focus: var(--color-amber-500);
 
-  /* ── Semantic: Borders ───────────────────────────────── */
-  --border-card-top:     var(--color-amber-500);     /* Signature card top rule */
-  --border-subtle:       rgba(240, 232, 208, 0.12);
-  --border-amber:        rgba(201, 151, 58, 0.40);
-  --border-parchment:    var(--color-parchment-300);
-  --border-safety:       var(--color-burgundy-400);
-  --border-input:        rgba(240, 232, 208, 0.15);
-  --border-input-focus:  var(--color-amber-500);
-
-  /* ── Semantic: Accent ────────────────────────────────── */
-  --accent-primary:       var(--color-amber-500);
+  --accent-primary: var(--color-amber-500);
   --accent-primary-hover: var(--color-amber-400);
-  --accent-secondary:     var(--color-sage-400);
-  --accent-safety:        var(--color-burgundy-500);
+  --accent-secondary: var(--color-sage-400);
+  --accent-safety: var(--color-burgundy-500);
 
-  /* ── Focus ring ──────────────────────────────────────── */
-  --focus-ring: 0 0 0 3px rgba(201, 151, 58, 0.30);
+  --focus-ring: 0 0 0 3px rgba(201, 151, 58, 0.3);
 }

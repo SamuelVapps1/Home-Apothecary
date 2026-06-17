@@ -2,61 +2,97 @@
 
 import { Badge } from "@/components/core/Badge";
 import { Input } from "@/components/core/Input";
-import { RemedyCard } from "@/components/core/RemedyCard";
+import { RecipeCard } from "@/components/core/RecipeCard";
 import { Tag } from "@/components/core/Tag";
-import type { Remedy } from "@/types";
+import type { RecipeDetail } from "@/types";
 import { Search, ShieldAlert } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const filters = ["All", "Digestive", "Sleep", "Immunity", "Pain", "Skin"];
+function uniqueCategories(recipes: RecipeDetail[]) {
+  return Array.from(new Set(recipes.map((recipe) => recipe.category))).sort();
+}
 
-function splitIngredientTerms(value: string) {
+function hasSafetyConcern(recipe: RecipeDetail) {
+  const plantSafety = recipe.components.some(
+    (component) =>
+      (component.plant?.contraindications.length ?? 0) > 0 ||
+      (component.plant?.interactions.length ?? 0) > 0 ||
+      Boolean(component.plant?.pregnancy_warning_text) ||
+      Boolean(component.plant?.allergy_note),
+  );
+
+  return plantSafety || recipe.safety_notes.length > 0;
+}
+
+function splitTerms(value: string) {
   return value
     .split(/[,;\n]+/)
     .map((term) => term.trim().toLowerCase())
     .filter(Boolean);
 }
 
-function hasSafetyConcern(remedy: Remedy) {
-  return (
-    remedy.contraindications.length > 0 || remedy.interactions.length > 0 || remedy.pregnancy_warning
-  );
-}
-
 export function BrowseScreen({
-  remedies,
+  recipes,
   rateLimited = false,
 }: {
-  remedies: Remedy[];
+  recipes: RecipeDetail[];
   rateLimited?: boolean;
 }) {
   const [search, setSearch] = useState("");
+  const [plantQuery, setPlantQuery] = useState("");
   const [filter, setFilter] = useState("All");
-  const [ingredients, setIngredients] = useState("");
   const [safetyOnly, setSafetyOnly] = useState(false);
+
+  const filters = useMemo(() => ["All", ...uniqueCategories(recipes)], [recipes]);
 
   const visible = useMemo(() => {
     const query = search.trim().toLowerCase();
-    const ingredientTerms = splitIngredientTerms(ingredients);
+    const plantTerms = splitTerms(plantQuery);
 
-    return remedies.filter((remedy) => {
-      const matchesFilter = filter === "All" || remedy.category === filter;
+    return recipes.filter((recipe) => {
+      const matchesFilter = filter === "All" || recipe.category === filter;
       const matchesSearch =
         query.length === 0 ||
-        remedy.name.toLowerCase().includes(query) ||
-        remedy.name_latin.toLowerCase().includes(query) ||
-        remedy.summary.toLowerCase().includes(query) ||
-        remedy.symptoms.some((item) => item.toLowerCase().includes(query));
-      const matchesIngredients =
-        ingredientTerms.length === 0 ||
-        ingredientTerms.every((term) =>
-          remedy.ingredients.some((ingredient) => ingredient.toLowerCase().includes(term)),
+        recipe.title.toLowerCase().includes(query) ||
+        recipe.category.toLowerCase().includes(query) ||
+        recipe.summary.toLowerCase().includes(query) ||
+        recipe.traditional_use.toLowerCase().includes(query) ||
+        recipe.preparation_type.toLowerCase().includes(query) ||
+        recipe.components.some((component) => {
+          const plant = component.plant;
+          return (
+            component.part_used.toLowerCase().includes(query) ||
+            component.ratio_quantity.toLowerCase().includes(query) ||
+            Boolean(component.temperature?.toLowerCase().includes(query)) ||
+            Boolean(component.time?.toLowerCase().includes(query)) ||
+            Boolean(component.prep_notes?.toLowerCase().includes(query)) ||
+            Boolean(plant?.common_name.toLowerCase().includes(query)) ||
+            Boolean(plant?.name_latin.toLowerCase().includes(query)) ||
+            Boolean(plant?.family.toLowerCase().includes(query))
+          );
+        });
+      const matchesPlantTerms =
+        plantTerms.length === 0 ||
+        plantTerms.every((term) =>
+          recipe.components.some((component) => {
+            const plant = component.plant;
+            return (
+              Boolean(plant?.common_name.toLowerCase().includes(term)) ||
+              Boolean(plant?.name_latin.toLowerCase().includes(term)) ||
+              Boolean(plant?.family.toLowerCase().includes(term)) ||
+              component.part_used.toLowerCase().includes(term) ||
+              component.ratio_quantity.toLowerCase().includes(term) ||
+              Boolean(component.prep_notes?.toLowerCase().includes(term)) ||
+              Boolean(component.temperature?.toLowerCase().includes(term)) ||
+              Boolean(component.time?.toLowerCase().includes(term))
+            );
+          }),
         );
-      const matchesSafety = !safetyOnly || hasSafetyConcern(remedy);
+      const matchesSafety = !safetyOnly || hasSafetyConcern(recipe);
 
-      return matchesFilter && matchesSearch && matchesIngredients && matchesSafety;
+      return matchesFilter && matchesSearch && matchesPlantTerms && matchesSafety;
     });
-  }, [filter, ingredients, remedies, safetyOnly, search]);
+  }, [filter, plantQuery, recipes, safetyOnly, search]);
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-4">
@@ -72,19 +108,19 @@ export function BrowseScreen({
       ) : null}
 
       <section className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 shadow-md">
-        <div className="grid gap-3 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.9fr)]">
+        <div className="grid gap-3 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
           <Input
             leadingIcon={<Search className="h-4 w-4" />}
-            placeholder="Search remedies, herbs, symptoms..."
+            placeholder="Search recipes, plants, traditional use..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
           <Input
-            label="What I have at home"
-            placeholder="e.g. honey, ginger, lemon"
-            value={ingredients}
-            onChange={(event) => setIngredients(event.target.value)}
-            hint="Filter by ingredients you already have on hand."
+            label="Plants or parts"
+            placeholder="e.g. chamomile, root, leaves"
+            value={plantQuery}
+            onChange={(event) => setPlantQuery(event.target.value)}
+            hint="Filter by the plant material used in a recipe."
           />
         </div>
 
@@ -102,7 +138,7 @@ export function BrowseScreen({
       </section>
 
       <div className="flex items-center justify-between gap-3">
-        <Badge variant="neutral">{visible.length} remedies</Badge>
+        <Badge variant="neutral">{visible.length} recipes</Badge>
         <span className="font-body text-xs uppercase tracking-widest text-[var(--text-muted)]">
           Traditional use only
         </span>
@@ -110,23 +146,33 @@ export function BrowseScreen({
 
       {visible.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {visible.map((remedy) => (
-            <RemedyCard
-              key={remedy.slug}
-              className="h-full"
-              herbName={remedy.name}
-              latinName={remedy.name_latin}
-              summary={remedy.summary}
-              tags={[remedy.category, ...remedy.symptoms.slice(0, 2)]}
-              hasWarning={hasSafetyConcern(remedy)}
-              href={`/remedies/${remedy.slug}`}
-            />
-          ))}
+          {visible.map((recipe) => {
+            const primaryPlant = recipe.components[0]?.plant ?? null;
+            const tierLabel = recipe.is_free ? "Free" : recipe.required_tier;
+
+            return (
+              <RecipeCard
+                key={recipe.slug}
+                className="h-full"
+                title={recipe.title}
+                latinName={primaryPlant?.name_latin}
+                summary={recipe.summary}
+                tags={[
+                  recipe.category,
+                  recipe.preparation_type,
+                  tierLabel,
+                  primaryPlant?.common_name ?? "Plant blend",
+                ].filter(Boolean)}
+                hasWarning={hasSafetyConcern(recipe)}
+                href={`/recipes/${recipe.slug}`}
+              />
+            );
+          })}
         </div>
       ) : (
         <section className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-5 text-center shadow-md">
           <p className="m-0 font-display text-2xl font-semibold text-[var(--text-primary)]">
-            No remedies match those filters.
+            No recipes match those filters.
           </p>
           <p className="mt-2 mb-0 font-body text-sm leading-relaxed text-[var(--text-secondary)]">
             Clear one or more filters and try again.

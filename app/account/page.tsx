@@ -13,11 +13,13 @@ export default async function AccountPage() {
   }
 
   const email = account.profile?.email || account.user.email || "Unknown";
-  const hasAccess = account.profile?.has_access ?? false;
+  const accessLevel = account.profile?.access_level ?? "free";
   const activatedAt = account.profile?.activated_at;
+  const accessLabel = accessLevel === "free" ? "Free" : accessLevel === "standard" ? "Standard" : "Premium";
+  const accessVariant = accessLevel === "premium" ? "sage" : accessLevel === "standard" ? "amber" : "neutral";
 
   return (
-    <AppShell title="Home Apothecary" navIndex={2}>
+    <AppShell title="Virtual Apothecary" navIndex={2}>
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-4">
         <section className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-5 shadow-md">
           <p className="m-0 font-body text-xs uppercase tracking-widest text-[var(--text-muted)]">
@@ -41,12 +43,10 @@ export default async function AccountPage() {
 
             <div className="rounded-md bg-[var(--bg-parchment)] p-4 shadow-sm">
               <p className="m-0 font-body text-xs uppercase tracking-widest text-[var(--text-on-parchment-2)]">
-                Access status
+                Access level
               </p>
               <div className="mt-2">
-                <Badge variant={hasAccess ? "sage" : "safety"}>
-                  {hasAccess ? "Active" : "No access"}
-                </Badge>
+                <Badge variant={accessVariant}>{accessLabel}</Badge>
               </div>
             </div>
           </div>

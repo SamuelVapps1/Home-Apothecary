@@ -36,7 +36,7 @@ export async function getCurrentAccount() {
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("id,email,has_access,activated_at")
+      .select("id,email,has_access,access_level,activated_at")
       .eq("id", user.id)
       .maybeSingle();
 

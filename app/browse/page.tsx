@@ -1,13 +1,13 @@
 import { AppShell } from "@/components/screens/AppShell";
 import { BrowseScreen } from "@/components/screens/BrowseScreen";
-import { getRemedies } from "@/lib/remedies";
+import { getRecipes } from "@/lib/recipes";
 
 export default async function BrowsePage() {
-  const { remedies, rateLimited } = await getRemedies();
+  const { recipes, rateLimited } = await getRecipes();
 
   return (
-    <AppShell title="Home Apothecary" navIndex={1}>
-      <BrowseScreen remedies={remedies} rateLimited={rateLimited} />
+    <AppShell title="Virtual Apothecary" navIndex={1}>
+      <BrowseScreen recipes={recipes} rateLimited={rateLimited} />
     </AppShell>
   );
 }
