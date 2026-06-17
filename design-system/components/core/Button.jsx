@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Button — Primary interactive element for Home Apothecary.
+ * Button — Primary interactive element for Virtual Apothecary.
  * Vintage apothecary style: uppercase tracked labels, amber primary,
  * ghost and danger variants for secondary actions and safety CTAs.
  */

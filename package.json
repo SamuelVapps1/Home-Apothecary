@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "content:import": "node scripts/import-content.mjs",
+    "content:import:apply": "node scripts/import-content.mjs --apply"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",

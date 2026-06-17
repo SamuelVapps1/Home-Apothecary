@@ -1,0 +1,27 @@
+{
+  "slug": "example-recipe",
+  "title": "Example Recipe",
+  "category": "",
+  "summary": "",
+  "preparation_type": "other",
+  "traditional_use": "",
+  "method_steps": [
+    {
+      "title": "Step 1",
+      "text": ""
+    }
+  ],
+  "dosage_note": "",
+  "safety_notes": [],
+  "sources": [],
+  "is_free": true,
+  "required_tier": "free",
+  "components": [
+    {
+      "plant_slug": "example-plant",
+      "part_used": "",
+      "ratio_quantity": "",
+      "sort_order": 1
+    }
+  ]
+}

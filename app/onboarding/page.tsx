@@ -52,7 +52,7 @@ export default async function OnboardingPage({
 
         <p className="m-0 font-body text-base leading-relaxed text-[var(--text-secondary)]">
           Educational only, not medical advice. Sign in without a password to continue to the
-          gated cabinet.
+          gated library.
         </p>
 
         <div className="flex flex-wrap gap-2">

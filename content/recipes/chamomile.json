@@ -1,0 +1,42 @@
+{
+  "slug": "chamomile",
+  "title": "Chamomile",
+  "category": "Sleep",
+  "summary": "A gentle flowering herb traditionally used to calm the nerves and ease uneasy digestion.",
+  "preparation_type": "infusion",
+  "traditional_use": "Chamomile has long been used in household herbal practice for its soft, settling character. Traditionally it is prepared as a warm infusion when the body feels tense, restless, or unsettled after food.",
+  "method_steps": [
+    {
+      "title": "Measure",
+      "text": "Use 2 heaped teaspoons of dried flowers for one cup."
+    },
+    {
+      "title": "Infuse",
+      "text": "Pour freshly boiled water over the herb and cover for 10 minutes."
+    },
+    {
+      "title": "Serve",
+      "text": "Strain and drink warm. Honey may be added after the tea cools slightly."
+    }
+  ],
+  "dosage_note": "Traditional range: 1 to 3 cups daily, depending on the preparation and tolerance.",
+  "safety_notes": [],
+  "sources": [
+    "European Medicines Agency herbal monograph",
+    "British Herbal Pharmacopoeia",
+    "Commission E monograph collection"
+  ],
+  "is_free": true,
+  "required_tier": "free",
+  "components": [
+    {
+      "plant_slug": "chamomile",
+      "part_used": "flowers",
+      "ratio_quantity": "2 heaped teaspoons per cup",
+      "temperature": "freshly boiled water",
+      "time": "10 minutes",
+      "prep_notes": "Cover the cup while it infuses.",
+      "sort_order": 1
+    }
+  ]
+}

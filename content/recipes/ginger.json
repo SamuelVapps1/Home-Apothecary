@@ -1,0 +1,42 @@
+{
+  "slug": "ginger",
+  "title": "Ginger",
+  "category": "Digestive",
+  "summary": "A warming root traditionally used to settle the stomach and support circulation.",
+  "preparation_type": "infusion",
+  "traditional_use": "Ginger has been used in kitchens and herbal practice alike as a warming, aromatic root. Traditionally it is prepared when the body feels cold, sluggish, or unsettled after travel or meals.",
+  "method_steps": [
+    {
+      "title": "Slice",
+      "text": "Cut a small piece of fresh root or use a teaspoon of dried slices."
+    },
+    {
+      "title": "Simmer",
+      "text": "Steep in hot water for 10 to 15 minutes to draw out the aroma."
+    },
+    {
+      "title": "Balance",
+      "text": "Drink plain or with a little honey or lemon if the flavor feels too sharp."
+    }
+  ],
+  "dosage_note": "Traditional range: small cups through the day; keep preparations modest and conservative.",
+  "safety_notes": [],
+  "sources": [
+    "Traditional European herbal practice",
+    "Commission E",
+    "Modern herb monographs"
+  ],
+  "is_free": true,
+  "required_tier": "free",
+  "components": [
+    {
+      "plant_slug": "ginger",
+      "part_used": "root",
+      "ratio_quantity": "small piece or a teaspoon of dried slices",
+      "temperature": "hot water",
+      "time": "10 to 15 minutes",
+      "prep_notes": "Steep until the aroma draws through.",
+      "sort_order": 1
+    }
+  ]
+}

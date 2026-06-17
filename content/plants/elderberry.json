@@ -1,0 +1,20 @@
+{
+  "slug": "elderberry",
+  "common_name": "Elderberry",
+  "name_latin": "Sambucus nigra",
+  "family": "Adoxaceae",
+  "parts_used": ["berries"],
+  "contraindications": [
+    "Do not use raw berries, leaves, or stems."
+  ],
+  "interactions": [
+    "Use caution alongside immunosuppressive medicines and diuretics."
+  ],
+  "pregnancy_warning_text": "Pregnancy: use only well-prepared, conservative servings and avoid raw material.",
+  "allergy_note": "Stop use if digestive upset or rash appears.",
+  "sources": [
+    "Folk herb references",
+    "Herbal monographs",
+    "Traditional syrup preparations"
+  ]
+}

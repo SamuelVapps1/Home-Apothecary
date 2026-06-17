@@ -45,7 +45,7 @@ export default async function HomePage() {
 
         <p className="m-0 max-w-prose font-body text-base leading-relaxed text-[var(--text-secondary)]">
           Educational only, not medical advice. Browse a warm, mobile-first library of herbal
-          recipes with prominent safety warnings and purchase-gated full content.
+          recipes with prominent safety warnings and access-gated full content.
         </p>
 
         <div className="flex flex-wrap gap-2">
@@ -59,7 +59,7 @@ export default async function HomePage() {
         <div className="flex flex-col gap-3">
           {user ? (
             <Button href="/browse" fullWidth>
-              Continue to the Cabinet
+              Continue to the Library
             </Button>
           ) : (
             <Button href="/onboarding" fullWidth>
@@ -67,7 +67,7 @@ export default async function HomePage() {
             </Button>
           )}
           <Button href="/browse" fullWidth variant="secondary">
-            Browse the Cabinet
+            Browse the Library
           </Button>
           {checkoutUrl ? (
             <Button href={checkoutUrl} fullWidth variant="ghost">

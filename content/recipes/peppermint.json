@@ -1,0 +1,42 @@
+{
+  "slug": "peppermint",
+  "title": "Peppermint",
+  "category": "Digestive",
+  "summary": "A cooling aromatic herb traditionally used after meals and for a clear, bright mouthfeel.",
+  "preparation_type": "infusion",
+  "traditional_use": "Peppermint is a familiar household herb, traditionally used after meals and in refreshing infusions. Its bright aroma is often chosen when the body feels heavy or overfull.",
+  "method_steps": [
+    {
+      "title": "Crush",
+      "text": "Gently bruise the leaves before steeping."
+    },
+    {
+      "title": "Infuse",
+      "text": "Cover with hot water for 5 to 8 minutes to keep the flavor lively."
+    },
+    {
+      "title": "Drink",
+      "text": "Sip slowly after food or during the day as a cooling herbal cup."
+    }
+  ],
+  "dosage_note": "Traditional range: a cup after meals or as needed for a short, conservative run.",
+  "safety_notes": [],
+  "sources": [
+    "Household herbal practice",
+    "Modern monographs",
+    "Traditional digestive teas"
+  ],
+  "is_free": true,
+  "required_tier": "free",
+  "components": [
+    {
+      "plant_slug": "peppermint",
+      "part_used": "leaves",
+      "ratio_quantity": "one cup after meals",
+      "temperature": "hot water",
+      "time": "5 to 8 minutes",
+      "prep_notes": "Bruise the leaves before steeping.",
+      "sort_order": 1
+    }
+  ]
+}

@@ -19,7 +19,7 @@ The main list item for Browse and search results. Dark surface (#1e2d1e), 2px am
 />
 ```
 
-**`hasWarning`** — Show the amber ⚠ badge when the herb has significant drug interactions or contraindications (e.g. Valerian + sedatives, St. John's Wort + many medications). This badge is intentionally understated on the card — full detail is on the Remedy Detail safety section.
+**`hasWarning`** — Show the amber ⚠ badge when the herb has significant drug interactions or contraindications (e.g. Valerian + sedatives, St. John's Wort + many medications). This badge is intentionally understated on the card — full detail is on the recipe detail safety section.
 
 **Tags** — Use the standard category vocabulary: Sleep · Digestive · Immunity · Pain · Skin · Antiviral · Nervine · Adaptogen
 
