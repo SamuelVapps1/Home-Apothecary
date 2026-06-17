@@ -4,11 +4,20 @@
   "name_latin": "Matricaria recutita",
   "family": "Asteraceae",
   "parts_used": ["flowers"],
+  "traditional_use_summary": "",
+  "age_restrictions": [],
+  "max_duration_dose": [],
+  "toxicity_signals": [],
+  "hard_caution": false,
   "contraindications": [
     "Do not use if you have a known allergy to plants in the Asteraceae family."
   ],
   "interactions": [
-    "May intensify the effects of sedative medicines and coumarin anticoagulants."
+    {
+      "drug_or_class": "May intensify the effects of sedative medicines and coumarin anticoagulants.",
+      "mechanism": "",
+      "severity": "MINOR_THEORETICAL"
+    }
   ],
   "pregnancy_warning_text": "Pregnancy: keep to ordinary dietary amounts unless a qualified practitioner advises otherwise.",
   "allergy_note": "Possible cross-reaction with ragweed, chrysanthemums, marigolds, and daisies.",

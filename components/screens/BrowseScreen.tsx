@@ -15,6 +15,7 @@ function uniqueCategories(recipes: RecipeDetail[]) {
 function hasSafetyConcern(recipe: RecipeDetail) {
   const plantSafety = recipe.components.some(
     (component) =>
+      Boolean(component.plant?.hard_caution) ||
       (component.plant?.contraindications.length ?? 0) > 0 ||
       (component.plant?.interactions.length ?? 0) > 0 ||
       Boolean(component.plant?.pregnancy_warning_text) ||

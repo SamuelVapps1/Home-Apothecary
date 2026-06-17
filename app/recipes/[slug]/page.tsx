@@ -6,15 +6,8 @@ import { getRecipeBySlug, RateLimitError } from "@/lib/recipes";
 import { AlertTriangle } from "lucide-react";
 import { notFound } from "next/navigation";
 
-const hardCautionPlants = new Set(["st-johns-wort", "licorice", "ginkgo", "ashwagandha"]);
-
 function formatTierLabel(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
-}
-
-function isHardCautionPlant(slug: string, commonName: string) {
-  const normalizedName = commonName.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
-  return hardCautionPlants.has(slug) || hardCautionPlants.has(normalizedName);
 }
 
 export default async function RecipeDetailPage({
@@ -54,10 +47,7 @@ export default async function RecipeDetailPage({
 
   const primaryPlant = recipe.components[0]?.plant ?? null;
   const accessBadge = recipe.is_free ? "Free" : formatTierLabel(recipe.required_tier);
-  const hardCautionComponent = recipe.components.find((component) => {
-    const plant = component.plant;
-    return plant ? isHardCautionPlant(plant.slug, plant.common_name) : false;
-  });
+  const hardCautionPlant = recipe.components.find((component) => component.plant?.hard_caution)?.plant ?? null;
 
   return (
     <AppShell title="Virtual Apothecary" navIndex={1}>
@@ -94,7 +84,7 @@ export default async function RecipeDetailPage({
             </p>
           </section>
 
-          {hardCautionComponent?.plant ? (
+          {hardCautionPlant ? (
             <section className="max-w-prose rounded-md border border-[rgba(139,26,26,0.55)] bg-[rgba(139,26,26,0.18)] p-4 shadow-md">
               <div className="mb-2 flex items-center gap-2">
                 <AlertTriangle aria-hidden="true" className="h-4 w-4 text-[var(--text-safety)]" />
@@ -103,8 +93,8 @@ export default async function RecipeDetailPage({
                 </h2>
               </div>
               <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
-                {hardCautionComponent.plant.common_name} is on the hard-caution list. Keep the
-                safety section visible and review this entry carefully before any use.
+                {hardCautionPlant.common_name} is marked hard caution. Keep the safety section
+                visible and review this entry carefully before any use.
               </p>
             </section>
           ) : null}
@@ -160,9 +150,21 @@ export default async function RecipeDetailPage({
                         <p className="mb-1 font-body text-[0.68rem] uppercase tracking-widest text-[var(--color-parchment-400)]">
                           Drug Interactions
                         </p>
-                        <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
-                          {plant.interactions.join(" ")}
-                        </p>
+                        {plant.interactions.length > 0 ? (
+                          <ul className="m-0 list-disc space-y-1 pl-5 font-body text-sm leading-relaxed text-[var(--text-safety)] marker:text-[var(--color-parchment-200)]">
+                            {plant.interactions.map((interaction) => (
+                              <li key={`${interaction.drug_or_class}-${interaction.severity}`}>
+                                <span className="font-semibold">{interaction.drug_or_class}</span>
+                                {interaction.mechanism ? ` ${interaction.mechanism}` : ""}
+                                {interaction.severity ? ` (${interaction.severity})` : ""}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
+                            No interaction entries are scaffolded for this plant.
+                          </p>
+                        )}
                       </div>
                       <div>
                         <p className="mb-1 font-body text-[0.68rem] uppercase tracking-widest text-[var(--color-parchment-400)]">
@@ -179,6 +181,62 @@ export default async function RecipeDetailPage({
                         <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
                           {plant.allergy_note}
                         </p>
+                      </div>
+                      <div>
+                        <p className="mb-1 font-body text-[0.68rem] uppercase tracking-widest text-[var(--color-parchment-400)]">
+                          Traditional use summary
+                        </p>
+                        <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
+                          {plant.traditional_use_summary || "No plant summary is scaffolded for this entry."}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="mb-1 font-body text-[0.68rem] uppercase tracking-widest text-[var(--color-parchment-400)]">
+                          Age restrictions
+                        </p>
+                        {plant.age_restrictions.length > 0 ? (
+                          <ul className="m-0 list-disc space-y-1 pl-5 font-body text-sm leading-relaxed text-[var(--text-safety)] marker:text-[var(--color-parchment-200)]">
+                            {plant.age_restrictions.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
+                            No age restriction entries are scaffolded for this plant.
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <p className="mb-1 font-body text-[0.68rem] uppercase tracking-widest text-[var(--color-parchment-400)]">
+                          Max duration / dose
+                        </p>
+                        {plant.max_duration_dose.length > 0 ? (
+                          <ul className="m-0 list-disc space-y-1 pl-5 font-body text-sm leading-relaxed text-[var(--text-safety)] marker:text-[var(--color-parchment-200)]">
+                            {plant.max_duration_dose.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
+                            No max duration or dose entries are scaffolded for this plant.
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <p className="mb-1 font-body text-[0.68rem] uppercase tracking-widest text-[var(--color-parchment-400)]">
+                          Toxicity signals
+                        </p>
+                        {plant.toxicity_signals.length > 0 ? (
+                          <ul className="m-0 list-disc space-y-1 pl-5 font-body text-sm leading-relaxed text-[var(--text-safety)] marker:text-[var(--color-parchment-200)]">
+                            {plant.toxicity_signals.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="m-0 font-body text-sm leading-relaxed text-[var(--text-safety)]">
+                            No toxicity signals are scaffolded for this plant.
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

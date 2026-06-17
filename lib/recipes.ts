@@ -3,7 +3,7 @@ import { consumeRateLimit } from "@/lib/rate-limit";
 import { getRecipeBySlug as getFallbackRecipeBySlug, recipes as fallbackRecipes } from "@/lib/content-recipes";
 import { getSupabaseConfig } from "@/lib/supabase/config";
 import { createServerClient } from "@/lib/supabase/server";
-import type { Plant, Recipe, RecipeComponent, RecipeDetail, Tier } from "@/types";
+import type { Plant, PlantInteraction, Recipe, RecipeComponent, RecipeDetail, Tier } from "@/types";
 
 const recipeSelect = `
   id,
@@ -36,6 +36,11 @@ const recipeSelect = `
       name_latin,
       family,
       parts_used,
+      traditional_use_summary,
+      age_restrictions,
+      max_duration_dose,
+      toxicity_signals,
+      hard_caution,
       contraindications,
       interactions,
       pregnancy_warning_text,
@@ -60,6 +65,37 @@ function normalizeTier(value: unknown): Tier {
   return value === "standard" || value === "premium" ? value : "free";
 }
 
+function normalizeInteractions(value: unknown): PlantInteraction[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") {
+        return null;
+      }
+
+      const interaction = item as Partial<PlantInteraction>;
+
+      if (
+        typeof interaction.drug_or_class !== "string" ||
+        typeof interaction.mechanism !== "string" ||
+        !interaction.severity ||
+        !["AVOID", "MAJOR", "MODERATE", "MINOR_THEORETICAL"].includes(interaction.severity)
+      ) {
+        return null;
+      }
+
+      return {
+        drug_or_class: interaction.drug_or_class,
+        mechanism: interaction.mechanism,
+        severity: interaction.severity as PlantInteraction["severity"],
+      };
+    })
+    .filter((item): item is PlantInteraction => item !== null);
+}
+
 function normalizePlant(value: unknown): Plant | null {
   if (!value || typeof value !== "object") {
     return null;
@@ -78,8 +114,13 @@ function normalizePlant(value: unknown): Plant | null {
     name_latin: plant.name_latin,
     family: plant.family,
     parts_used: normalizeStringArray(plant.parts_used),
+    traditional_use_summary: typeof plant.traditional_use_summary === "string" ? plant.traditional_use_summary : "",
+    age_restrictions: normalizeStringArray(plant.age_restrictions),
+    max_duration_dose: normalizeStringArray(plant.max_duration_dose),
+    toxicity_signals: normalizeStringArray(plant.toxicity_signals),
+    hard_caution: Boolean(plant.hard_caution),
     contraindications: normalizeStringArray(plant.contraindications),
-    interactions: normalizeStringArray(plant.interactions),
+    interactions: normalizeInteractions(plant.interactions),
     pregnancy_warning_text: plant.pregnancy_warning_text ?? "",
     allergy_note: plant.allergy_note ?? "",
     sources: normalizeStringArray(plant.sources),
