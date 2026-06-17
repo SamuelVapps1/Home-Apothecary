@@ -1,0 +1,20 @@
+{
+  "slug": "chamomile",
+  "common_name": "Chamomile",
+  "name_latin": "Matricaria recutita",
+  "family": "Asteraceae",
+  "parts_used": ["flowers"],
+  "contraindications": [
+    "Do not use if you have a known allergy to plants in the Asteraceae family."
+  ],
+  "interactions": [
+    "May intensify the effects of sedative medicines and coumarin anticoagulants."
+  ],
+  "pregnancy_warning_text": "Pregnancy: keep to ordinary dietary amounts unless a qualified practitioner advises otherwise.",
+  "allergy_note": "Possible cross-reaction with ragweed, chrysanthemums, marigolds, and daisies.",
+  "sources": [
+    "European Medicines Agency herbal monograph",
+    "British Herbal Pharmacopoeia",
+    "Commission E monograph collection"
+  ]
+}

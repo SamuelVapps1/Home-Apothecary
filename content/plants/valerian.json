@@ -1,0 +1,20 @@
+{
+  "slug": "valerian",
+  "common_name": "Valerian",
+  "name_latin": "Valeriana officinalis",
+  "family": "Caprifoliaceae",
+  "parts_used": ["root"],
+  "contraindications": [
+    "Do not combine with other strongly sedating preparations without guidance."
+  ],
+  "interactions": [
+    "May intensify sedative medicines, alcohol, and certain sleep aids."
+  ],
+  "pregnancy_warning_text": "Pregnancy: avoid concentrated use unless a qualified practitioner approves it.",
+  "allergy_note": "Earthy odor is normal; stop if adverse reactions appear.",
+  "sources": [
+    "European herbal references",
+    "Traditional sleep preparations",
+    "Herbal monographs"
+  ]
+}

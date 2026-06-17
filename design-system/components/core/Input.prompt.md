@@ -4,7 +4,7 @@ Dark-surface input with amber focus ring. Used for the Browse search bar and any
 // Search bar
 <Input
   type="search"
-  placeholder="Search remedies, herbs, symptoms…"
+  placeholder="Search recipes, herbs, symptoms…"
   leadingIcon="⌕"
 />
 

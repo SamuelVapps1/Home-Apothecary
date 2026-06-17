@@ -31,6 +31,10 @@ function splitTerms(value: string) {
     .filter(Boolean);
 }
 
+function formatTierLabel(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 export function BrowseScreen({
   recipes,
   rateLimited = false,
@@ -148,7 +152,7 @@ export function BrowseScreen({
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {visible.map((recipe) => {
             const primaryPlant = recipe.components[0]?.plant ?? null;
-            const tierLabel = recipe.is_free ? "Free" : recipe.required_tier;
+            const tierLabel = recipe.is_free ? "Free" : formatTierLabel(recipe.required_tier);
 
             return (
               <RecipeCard

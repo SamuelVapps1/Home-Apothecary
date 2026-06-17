@@ -1,0 +1,20 @@
+{
+  "slug": "peppermint",
+  "common_name": "Peppermint",
+  "name_latin": "Mentha x piperita",
+  "family": "Lamiaceae",
+  "parts_used": ["leaves"],
+  "contraindications": [
+    "Use caution if reflux tends to worsen with minty preparations."
+  ],
+  "interactions": [
+    "May alter how some antacids and reflux medicines feel subjectively."
+  ],
+  "pregnancy_warning_text": "Pregnancy: ordinary culinary use is different from concentrated herbal use; keep preparations modest.",
+  "allergy_note": "May irritate sensitive mouths or throats if overly concentrated.",
+  "sources": [
+    "Household herbal practice",
+    "Modern monographs",
+    "Traditional digestive teas"
+  ]
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * RemedyCard — Card displaying a single herb or remedy in a list.
+ * RemedyCard — Card displaying a single recipe in a list.
  *
  * Dark surface with the signature 2px amber top border.
  * Shows herb name (large cream serif), Latin name (italic amber),

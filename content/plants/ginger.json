@@ -1,0 +1,20 @@
+{
+  "slug": "ginger",
+  "common_name": "Ginger",
+  "name_latin": "Zingiber officinale",
+  "family": "Zingiberaceae",
+  "parts_used": ["root"],
+  "contraindications": [
+    "Use caution if you have a very sensitive stomach or active gastric irritation."
+  ],
+  "interactions": [
+    "May affect anticoagulants and blood-sugar-lowering medicines."
+  ],
+  "pregnancy_warning_text": "Pregnancy: use only conservative dietary amounts and seek guidance for concentrated preparations.",
+  "allergy_note": "Uncommon, but stop use if mouth or skin irritation appears.",
+  "sources": [
+    "Traditional European herbal practice",
+    "Commission E",
+    "Modern herb monographs"
+  ]
+}

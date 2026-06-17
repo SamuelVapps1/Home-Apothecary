@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Plant",
+  "type": "object",
+  "required": [
+    "slug",
+    "common_name",
+    "name_latin",
+    "family",
+    "parts_used",
+    "contraindications",
+    "interactions",
+    "pregnancy_warning_text",
+    "allergy_note",
+    "sources"
+  ],
+  "properties": {
+    "slug": { "type": "string" },
+    "common_name": { "type": "string" },
+    "name_latin": { "type": "string" },
+    "family": { "type": "string" },
+    "parts_used": { "type": "array", "items": { "type": "string" } },
+    "contraindications": { "type": "array", "items": { "type": "string" } },
+    "interactions": { "type": "array", "items": { "type": "string" } },
+    "pregnancy_warning_text": { "type": "string" },
+    "allergy_note": { "type": "string" },
+    "sources": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

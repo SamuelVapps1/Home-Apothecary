@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recipe",
+  "type": "object",
+  "required": [
+    "slug",
+    "title",
+    "category",
+    "summary",
+    "preparation_type",
+    "traditional_use",
+    "method_steps",
+    "dosage_note",
+    "safety_notes",
+    "sources",
+    "is_free",
+    "required_tier",
+    "components"
+  ],
+  "properties": {
+    "slug": { "type": "string" },
+    "title": { "type": "string" },
+    "category": { "type": "string" },
+    "summary": { "type": "string" },
+    "preparation_type": {
+      "type": "string",
+      "enum": ["infusion", "decoction", "tincture", "salve", "extract", "oil", "syrup", "powder", "other"]
+    },
+    "traditional_use": { "type": "string" },
+    "method_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "text"],
+        "properties": {
+          "title": { "type": "string" },
+          "text": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "dosage_note": { "type": "string" },
+    "safety_notes": { "type": "array", "items": { "type": "string" } },
+    "sources": { "type": "array", "items": { "type": "string" } },
+    "is_free": { "type": "boolean" },
+    "required_tier": { "type": "string", "enum": ["free", "standard", "premium"] },
+    "components": {
+      "type": "array",
+      "items": { "$ref": "recipe-component.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

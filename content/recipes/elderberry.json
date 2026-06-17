@@ -1,0 +1,42 @@
+{
+  "slug": "elderberry",
+  "title": "Elderberry",
+  "category": "Seasonal",
+  "summary": "A dark berry preparation traditionally used in seasonal folk practice.",
+  "preparation_type": "decoction",
+  "traditional_use": "Elderberry has a long folk history as a seasonal remedy. Traditionally it is prepared as a syrup or decoction when people want a warming, dark berry infusion during the cold months.",
+  "method_steps": [
+    {
+      "title": "Cook",
+      "text": "Simmer the berries thoroughly rather than using them raw."
+    },
+    {
+      "title": "Strain",
+      "text": "Press through a sieve to remove skins and seeds."
+    },
+    {
+      "title": "Store",
+      "text": "Keep refrigerated and use only a small serving at a time."
+    }
+  ],
+  "dosage_note": "Traditional range only; keep servings small and preparation thorough.",
+  "safety_notes": [],
+  "sources": [
+    "Folk herb references",
+    "Herbal monographs",
+    "Traditional syrup preparations"
+  ],
+  "is_free": false,
+  "required_tier": "standard",
+  "components": [
+    {
+      "plant_slug": "elderberry",
+      "part_used": "berries",
+      "ratio_quantity": "small serving",
+      "temperature": "simmered",
+      "time": "thoroughly cooked",
+      "prep_notes": "Simmer thoroughly rather than using raw material.",
+      "sort_order": 1
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "valerian",
+  "title": "Valerian",
+  "category": "Sleep",
+  "summary": "A root traditionally used for settled evenings and calmer night rest.",
+  "preparation_type": "infusion",
+  "traditional_use": "Valerian has been used for generations in quiet evening preparations. Traditionally it is taken when a person wants a stronger, earthy herb for winding down rather than stimulation.",
+  "method_steps": [
+    {
+      "title": "Grind",
+      "text": "Lightly bruise the root to expose the aroma before steeping."
+    },
+    {
+      "title": "Steep",
+      "text": "Infuse in hot water for 10 to 15 minutes, covered."
+    },
+    {
+      "title": "Use at night",
+      "text": "Drink in the evening and keep the rest of the routine calm and simple."
+    }
+  ],
+  "dosage_note": "Traditional range: modest evening servings only.",
+  "safety_notes": [],
+  "sources": [
+    "European herbal references",
+    "Traditional sleep preparations",
+    "Herbal monographs"
+  ],
+  "is_free": false,
+  "required_tier": "premium",
+  "components": [
+    {
+      "plant_slug": "valerian",
+      "part_used": "root",
+      "ratio_quantity": "modest evening serving",
+      "temperature": "hot water",
+      "time": "10 to 15 minutes",
+      "prep_notes": "Lightly bruise the root before steeping.",
+      "sort_order": 1
+    }
+  ]
+}

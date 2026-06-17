@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecipeComponent",
+  "type": "object",
+  "required": ["plant_slug", "part_used", "ratio_quantity"],
+  "properties": {
+    "plant_slug": { "type": "string" },
+    "part_used": { "type": "string" },
+    "ratio_quantity": { "type": "string" },
+    "temperature": { "type": "string" },
+    "time": { "type": "string" },
+    "prep_notes": { "type": "string" },
+    "sort_order": { "type": "integer" }
+  },
+  "additionalProperties": false
+}

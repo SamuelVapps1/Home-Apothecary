@@ -1,11 +1,11 @@
-<!-- @dsCard group="UI Kit" viewport="375x812" name="Home Apothecary App" subtitle="Browse and Remedy Detail — interactive click-through" -->
-<!-- @startingPoint section="Mobile Apps" subtitle="Vintage herbal remedies PWA — Browse & Remedy Detail" viewport="375x812" -->
+<!-- @dsCard group="UI Kit" viewport="375x812" name="Virtual Apothecary App" subtitle="Browse and Recipe Detail — interactive click-through" -->
+<!-- @startingPoint section="Mobile Apps" subtitle="Vintage herbal recipes PWA — Browse & Recipe Detail" viewport="375x812" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=375, initial-scale=1">
-  <title>Home Apothecary</title>
+  <title>Virtual Apothecary</title>
   <link rel="stylesheet" href="../../styles.css">
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -187,21 +187,21 @@ function BrowseScreen({ onSelect, navIndex, onNav }) {
       <header style={{background:'#111a11',borderBottom:'1px solid rgba(240,232,208,0.12)',padding:'0 16px',height:56,display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0}}>
         <div style={{display:'flex',alignItems:'center',gap:9}}>
           <span style={{color:'#c9973a',fontSize:20,lineHeight:1}}>⚗</span>
-          <h1 style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:19,fontWeight:700,color:'#f0e8d0',letterSpacing:'-0.01em',whiteSpace:'nowrap'}}>Home Apothecary</h1>
+          <h1 style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:19,fontWeight:700,color:'#f0e8d0',letterSpacing:'-0.01em',whiteSpace:'nowrap'}}>Virtual Apothecary</h1>
         </div>
         <span style={{color:'#a89874',fontSize:18,cursor:'pointer'}}>⊙</span>
       </header>
 
       <div style={{flex:1,overflowY:'auto',padding:'14px 16px'}}>
         <div style={{marginBottom:12}}>
-          <InputField placeholder="Search remedies, herbs, symptoms…" leadingIcon="⌕" value={search} onChange={e=>setSearch(e.target.value)} />
+          <InputField placeholder="Search recipes, herbs, symptoms…" leadingIcon="⌕" value={search} onChange={e=>setSearch(e.target.value)} />
         </div>
         <div style={{display:'flex',gap:8,overflowX:'auto',marginBottom:18,paddingBottom:4}}>
           {FILTERS.map(f => <Tag key={f} active={filter===f} onClick={()=>setFilter(f)}>{f}</Tag>)}
           <Tag onClick={()=>{}}>⚠ Safety</Tag>
         </div>
         <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,color:'#a89874',letterSpacing:'0.14em',textTransform:'uppercase',marginBottom:11}}>
-          {visible.length} {visible.length===1?'Remedy':'Remedies'}
+          {visible.length} {visible.length===1?'Recipe':'Recipes'}
         </p>
         <div style={{display:'flex',flexDirection:'column',gap:11}}>
           {visible.map(h => <RemedyCardUI key={h.id} {...h} onClick={()=>onSelect(h)} />)}
@@ -214,7 +214,7 @@ function BrowseScreen({ onSelect, navIndex, onNav }) {
   );
 }
 
-// ─── Remedy Detail Screen ──────────────────────────────────────────────────────
+// ─── Recipe Detail Screen ──────────────────────────────────────────────────────
 
 function DetailScreen({ herb, onBack, navIndex, onNav }) {
   const scrollRef = React.useRef(null);
@@ -241,7 +241,7 @@ function DetailScreen({ herb, onBack, navIndex, onNav }) {
           <LeafMark style={{top:'25%',left:'-2%',width:58,height:70,opacity:0.06,transform:'rotate(-30deg)'}}/>
           <LeafMark style={{bottom:'4%',right:'12%',width:50,height:62,opacity:0.06,transform:'rotate(40deg)'}}/>
           <div style={{position:'relative',zIndex:1}}>
-            <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,letterSpacing:'0.2em',color:'#c9973a',textTransform:'uppercase',marginBottom:10}}>Traditional Remedy</p>
+            <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:9,letterSpacing:'0.2em',color:'#c9973a',textTransform:'uppercase',marginBottom:10}}>Traditional Recipe</p>
             <h1 style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:52,fontWeight:700,color:'#f0e8d0',lineHeight:1,marginBottom:8,letterSpacing:'-0.02em'}}>{herb.herbName}</h1>
             <p style={{fontFamily:"'Cormorant Garamond','Playfair Display',Georgia,serif",fontSize:17,fontStyle:'italic',color:'#c9973a'}}>{herb.latinName}</p>
           </div>
@@ -328,7 +328,7 @@ function DetailScreen({ herb, onBack, navIndex, onNav }) {
           {/* Disclaimer */}
           <div style={{borderTop:'1px solid rgba(240,232,208,0.12)',paddingTop:14}}>
             <p style={{fontFamily:"'Lora',Georgia,serif",fontSize:10,color:'#a89874',fontStyle:'italic',lineHeight:1.72,textWrap:'pretty'}}>
-              The information in this app is for educational purposes only and does not constitute medical advice. Herbal remedies may interact with medications and medical conditions. Always consult a qualified healthcare practitioner before use, especially if pregnant, nursing, or managing a health condition.
+              The information in this app is for educational purposes only and does not constitute medical advice. Herbal recipes may interact with medications and medical conditions. Always consult a qualified healthcare practitioner before use, especially if pregnant, nursing, or managing a health condition.
             </p>
           </div>
           <div style={{height:8}}/>

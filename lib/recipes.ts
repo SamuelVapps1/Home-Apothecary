@@ -1,11 +1,8 @@
 import { getCurrentAccount } from "@/lib/auth";
 import { consumeRateLimit } from "@/lib/rate-limit";
+import { getRecipeBySlug as getFallbackRecipeBySlug, recipes as fallbackRecipes } from "@/lib/content-recipes";
 import { getSupabaseConfig } from "@/lib/supabase/config";
 import { createServerClient } from "@/lib/supabase/server";
-import {
-  getRecipeBySlug as getFallbackRecipeBySlug,
-  recipes as fallbackRecipes,
-} from "@/lib/sample-recipes";
 import type { Plant, Recipe, RecipeComponent, RecipeDetail, Tier } from "@/types";
 
 const recipeSelect = `
