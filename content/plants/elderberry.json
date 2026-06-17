@@ -1,29 +1,56 @@
 {
   "slug": "elderberry",
-  "common_name": "Elderberry",
+  "common_name": "Elderberry / Elder",
   "name_latin": "Sambucus nigra",
-  "family": "Adoxaceae",
-  "parts_used": ["berries"],
-  "traditional_use_summary": "",
-  "age_restrictions": [],
-  "max_duration_dose": [],
-  "toxicity_signals": [],
+  "family": "Adoxaceae (formerly Caprifoliaceae)",
+  "parts_used": ["flos (flowers)", "fructus (ripe berries)"],
+  "traditional_use_summary": "Elder has a long history of traditional use in European herbalism. The flowers (elderflower) have been traditionally used as a warming diaphoretic infusion to support the body during colds, chills, and feverish conditions. The ripe cooked berries (elderberry) have been traditionally used for the symptomatic relief of colds and to support seasonal wellness. Both Sambucus nigra flos and fructus have been assessed by the EMA Committee on Herbal Medicinal Products (HMPC).",
+  "age_restrictions": [
+    "Honey used in elderberry syrup preparations must NOT be given to infants under 12 months due to risk of infant botulism. Use maple syrup or omit sweetener for this age group.",
+    "Medicinal use in children: consult a healthcare professional. Note: raw or undercooked elderberry must never be given to children."
+  ],
+  "max_duration_dose": [
+    "No specific EMA maximum duration established for elderberry (fructus). EMA HMPC has published a monograph for Sambucus nigra flos (flowers); use flowers as directed per that monograph.",
+    "Follow product labelling and seek professional advice for extended use beyond 2 weeks."
+  ],
+  "toxicity_signals": [
+    "CRITICAL: Raw, unripe, or undercooked elderberries, as well as elder leaves, bark, and stems, contain the cyanogenic glycoside sambunigrin and are toxic. Consumption can cause nausea, vomiting, and in significant quantities, cyanide toxicity. Berries must always be fully cooked before use.",
+    "Fresh elder leaves contain approximately 0.16% hydrocyanic acid (Grieve, A Modern Herbal, 1931). Do not use leaves, bark, or stems in preparations."
+  ],
   "hard_caution": false,
   "contraindications": [
-    "Do not use raw berries, leaves, or stems."
+    "Known hypersensitivity to elderberry or elder flowers.",
+    "Autoimmune disease - theoretical concern based on immunostimulant activity; consult a healthcare professional before use."
   ],
   "interactions": [
     {
-      "drug_or_class": "Use caution alongside immunosuppressive medicines and diuretics.",
-      "mechanism": "",
+      "drug_or_class": "Immunosuppressants / immunotherapy",
+      "mechanism": "Theoretical immunostimulant activity may reduce the efficacy of immunosuppressant medications. Source: MSK About Herbs; MINOR/THEORETICAL - no clinical studies in humans confirmed.",
+      "severity": "MINOR_THEORETICAL"
+    },
+    {
+      "drug_or_class": "Antidiabetic medications",
+      "mechanism": "Theoretical additive blood-glucose-lowering effect based on in-vitro data.",
+      "severity": "MINOR_THEORETICAL"
+    },
+    {
+      "drug_or_class": "Diuretics",
+      "mechanism": "Theoretical additive diuretic effect; elderflower has traditional use as a diaphoretic.",
+      "severity": "MINOR_THEORETICAL"
+    },
+    {
+      "drug_or_class": "Pazopanib",
+      "mechanism": "A single case report of an interaction has been documented. Mechanism unknown. Evidence insufficient for firm conclusions.",
       "severity": "MINOR_THEORETICAL"
     }
   ],
-  "pregnancy_warning_text": "Pregnancy: use only well-prepared, conservative servings and avoid raw material.",
-  "allergy_note": "Stop use if digestive upset or rash appears.",
+  "pregnancy_warning_text": "Insufficient safety data available for pregnancy and lactation. Avoid medicinal doses. Culinary use of fully cooked elderberries is generally considered low risk, but professional advice is recommended.",
+  "allergy_note": "Allergy to elderberry or elder flowers is possible. Discontinue use if hypersensitivity reactions occur.",
   "sources": [
-    "Folk herb references",
-    "Herbal monographs",
-    "Traditional syrup preparations"
+    "EMA HMPC - Sambucus nigra flos herbal monograph (flowers)",
+    "EMA HMPC - Assessment of Sambucus nigra fructus",
+    "Grieve, M. A Modern Herbal (1931)",
+    "Memorial Sloan Kettering Cancer Center - About Herbs: Elderberry",
+    "Doc 1: Virtual Apothecary Content Source (plant profile #1)"
   ]
 }
