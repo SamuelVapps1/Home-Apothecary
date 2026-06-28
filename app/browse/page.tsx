@@ -6,7 +6,7 @@ export default async function BrowsePage() {
   const { recipes, rateLimited } = await getRecipes();
 
   return (
-    <AppShell title="Virtual Apothecary" navIndex={1}>
+    <AppShell title="Virtual Apothecary" navIndex={2}>
       <BrowseScreen recipes={recipes} rateLimited={rateLimited} />
     </AppShell>
   );

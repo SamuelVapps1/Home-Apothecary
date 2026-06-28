@@ -23,7 +23,7 @@ export default async function RecipeDetailPage({
   } catch (error) {
     if (error instanceof RateLimitError) {
       return (
-        <AppShell title="Virtual Apothecary" navIndex={1}>
+        <AppShell title="Virtual Apothecary" navIndex={2}>
           <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-4 py-4">
             <section className="rounded-lg border border-[var(--border-safety)] bg-[var(--bg-safety)] p-5 shadow-md">
               <p className="m-0 font-display text-2xl font-semibold text-[var(--text-safety)]">
@@ -50,7 +50,7 @@ export default async function RecipeDetailPage({
   const hardCautionPlant = recipe.components.find((component) => component.plant?.hard_caution)?.plant ?? null;
 
   return (
-    <AppShell title="Virtual Apothecary" navIndex={1}>
+    <AppShell title="Virtual Apothecary" navIndex={2}>
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-4 py-4">
         <section className="border-b-2 border-[var(--color-amber-500)] bg-[radial-gradient(ellipse_at_50%_20%,_rgba(61,92,61,0.95)_0%,_rgba(17,26,17,1)_74%)] px-5 pb-9 pt-10 text-center">
           <p className="mb-2 font-body text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-amber-500)]">

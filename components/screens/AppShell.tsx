@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 
 const navItems = [
   { icon: "home" as const, label: "Home", href: "/" },
+  { icon: "leaf" as const, label: "Library", href: "/library" },
   { icon: "search" as const, label: "Browse", href: "/browse" },
   { icon: "user" as const, label: "Account", href: "/account" },
 ];

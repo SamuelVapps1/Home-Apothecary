@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Home, Search, User } from "lucide-react";
+import { Home, Leaf, Search, User } from "lucide-react";
 
 const iconMap = {
   home: Home,
+  leaf: Leaf,
   search: Search,
   user: User,
 };

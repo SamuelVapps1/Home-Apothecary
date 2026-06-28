@@ -8,7 +8,7 @@ export default function RedeemPage() {
   const checkoutUrl = process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL;
 
   return (
-    <AppShell title="Virtual Apothecary" navIndex={2}>
+    <AppShell title="Virtual Apothecary" navIndex={3}>
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-5 px-4 py-4">
         <section className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-5 shadow-md">
           <p className="m-0 font-body text-xs uppercase tracking-widest text-[var(--text-muted)]">
