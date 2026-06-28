@@ -1,5 +1,4 @@
 import { MagicLinkForm } from "@/components/auth/MagicLinkForm";
-import { Badge } from "@/components/core/Badge";
 import { Button } from "@/components/core/Button";
 import { BrandMark } from "@/components/decorative/BrandMark";
 import { BotanicalDivider } from "@/components/decorative/BotanicalDivider";
@@ -22,6 +21,7 @@ export default async function OnboardingPage({
   const nextPath = resolvedSearchParams.next;
   const navItems = [
     { href: "/", label: "Home" },
+    { href: "/library", label: "Library" },
     { href: "/browse", label: "Browse" },
     { href: "/account", label: "Account" },
   ];
@@ -51,14 +51,8 @@ export default async function OnboardingPage({
         </header>
 
         <p className="m-0 font-body text-base leading-relaxed text-[var(--text-secondary)]">
-          Educational only, not medical advice. Sign in without a password to continue to the
-          gated library.
+          Educational only, not medical advice. Sign in by email link to open your account.
         </p>
-
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="amber">No Passwords</Badge>
-          <Badge variant="sage">Supabase Auth</Badge>
-        </div>
 
         <BotanicalDivider className="h-7 w-full text-[var(--color-amber-500)] opacity-80" />
 
@@ -71,8 +65,8 @@ export default async function OnboardingPage({
             Purchase flow
           </p>
           <p className="mt-2 mb-0 max-w-prose font-body text-sm leading-relaxed text-[var(--text-secondary)]">
-            Buy access, receive a license key by email, sign in with the magic link above, then
-            redeem the key on the redeem page.
+            Buy access, get your key by email, sign in with the link above, then unlock the full
+            recipes when you redeem it.
           </p>
           {checkoutUrl ? (
             <div className="mt-4">

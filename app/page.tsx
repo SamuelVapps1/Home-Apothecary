@@ -61,16 +61,16 @@ export default async function HomePage() {
               <div className="flex flex-wrap gap-2">
                 <Badge variant="amber">Traditional use</Badge>
                 <Badge variant="sage">Magic link</Badge>
-                <Badge variant="neutral">Server-gated content</Badge>
+                <Badge variant="neutral">Email key access</Badge>
               </div>
 
               <div className="max-w-2xl">
-                <h2 className="m-0 font-display text-4xl font-semibold leading-tight tracking-display text-[var(--text-primary)] md:text-5xl">
-                  A calm place for plant profiles, recipe notes, and the access path behind them.
+              <h2 className="m-0 font-display text-4xl font-semibold leading-tight tracking-display text-[var(--text-primary)] md:text-5xl">
+                  A calm place for plant profiles and full traditional-use recipes.
                 </h2>
                 <p className="mt-4 mb-0 max-w-prose font-body text-base leading-relaxed text-[var(--text-secondary)]">
-                  Buy access when you are ready, sign in with a magic link, and redeem your key
-                  from email. You can still preview the library before deciding.
+                  Buy access when you are ready, sign in by email link, and unlock the full recipe
+                  cabinet after you redeem your key.
                 </p>
               </div>
 
@@ -100,7 +100,7 @@ export default async function HomePage() {
 
               <p className="m-0 max-w-prose font-body text-xs leading-relaxed text-[var(--text-muted)]">
                 Educational only, not medical advice. Traditional-use framing is intentional, and
-                safety sections stay visible on content pages.
+                safety guidance stays visible on every plant and recipe.
               </p>
             </section>
 
@@ -110,9 +110,9 @@ export default async function HomePage() {
                   Access model
                 </p>
                 <ul className="mt-3 list-disc space-y-2 pl-5 font-body text-sm leading-relaxed text-[var(--text-secondary)] marker:text-[var(--color-amber-400)]">
-                  <li>License keys are redeemed once on the server.</li>
-                  <li>The library preview is public and read-only.</li>
-                  <li>Full recipe content remains behind access checks.</li>
+                  <li>Buy a key, get it by email, and unlock the full cabinet when you redeem it.</li>
+                  <li>Preview the library first, then decide if the full archive is right for you.</li>
+                  <li>Access stays tied to your account after you sign in by email link.</li>
                 </ul>
               </section>
 
@@ -121,9 +121,9 @@ export default async function HomePage() {
                   What to expect
                 </p>
                 <ul className="mt-3 list-disc space-y-2 pl-5 font-body text-sm leading-relaxed text-[var(--text-secondary)] marker:text-[var(--color-amber-400)]">
-                  <li>Plant library cards stay list-safe and non-gated.</li>
-                  <li>Recipes keep traditional-use framing only.</li>
-                  <li>Contraindications, interactions, and pregnancy notes stay visible.</li>
+                  <li>Plant profiles and recipes stay in plain traditional-use language.</li>
+                  <li>Safety guidance is shown on every plant and recipe.</li>
+                  <li>Contraindications, interactions, and pregnancy notes are always visible.</li>
                 </ul>
               </section>
             </aside>
