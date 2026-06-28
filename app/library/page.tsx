@@ -1,5 +1,4 @@
 import { AppShell } from "@/components/screens/AppShell";
-import { Badge } from "@/components/core/Badge";
 import { BotanicalDivider } from "@/components/decorative/BotanicalDivider";
 import { PlantCard } from "@/components/core/PlantCard";
 import { getPlants } from "@/lib/plants";
@@ -38,18 +37,11 @@ export default async function LibraryPage() {
             Plant library
           </p>
           <h1 className="mt-2 mb-0 font-display text-4xl font-bold tracking-display text-[var(--text-primary)]">
-            Read-only plant profiles.
+            Plant Library
           </h1>
           <p className="mt-3 mb-0 max-w-prose font-body text-base leading-relaxed text-[var(--text-secondary)]">
-            These entries stay list-safe: common name, Latin name, family, a short traditional-use
-            summary, and a quiet caution marker when needed.
+            Browse traditional-use plant profiles with safety shown alongside each entry.
           </p>
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Badge variant="amber">Public table</Badge>
-            <Badge variant="sage">List-safe fields only</Badge>
-            <Badge variant="neutral">No dead links</Badge>
-          </div>
 
           <BotanicalDivider className="mt-4 h-7 w-full text-[var(--color-amber-500)] opacity-80" />
         </section>
@@ -59,6 +51,7 @@ export default async function LibraryPage() {
             {plants.map((plant) => (
               <PlantCard
                 key={plant.slug}
+                slug={plant.slug}
                 name={plant.common_name}
                 latinName={plant.name_latin}
                 summary={plant.traditional_use_summary}
