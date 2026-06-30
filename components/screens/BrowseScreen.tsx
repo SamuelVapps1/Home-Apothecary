@@ -3,6 +3,7 @@
 import { Badge } from "@/components/core/Badge";
 import { Input } from "@/components/core/Input";
 import { RecipeCard } from "@/components/core/RecipeCard";
+import { useInventory } from "@/components/hooks/useInventory";
 import { Tag } from "@/components/core/Tag";
 import type { RecipeDetail } from "@/types";
 import { Search, ShieldAlert } from "lucide-react";
@@ -36,6 +37,51 @@ function formatTierLabel(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+type InventoryState = "full" | "partial" | "none" | "neutral";
+
+function getRecipeInventoryMatch(recipe: RecipeDetail, inventorySlugs: Set<string>) {
+  const required = Array.from(
+    new Set(recipe.components.map((component) => component.plant?.slug).filter(Boolean)),
+  ) as string[];
+  const total = required.length;
+
+  if (total === 0) {
+    return {
+      state: "neutral" as InventoryState,
+      label: undefined,
+      ownedCount: 0,
+      total,
+    };
+  }
+
+  const ownedCount = required.filter((slug) => inventorySlugs.has(slug)).length;
+
+  if (ownedCount === total) {
+    return {
+      state: "full" as InventoryState,
+      label: "You can make this",
+      ownedCount,
+      total,
+    };
+  }
+
+  if (ownedCount > 0) {
+    return {
+      state: "partial" as InventoryState,
+      label: `${ownedCount} of ${total} ingredients`,
+      ownedCount,
+      total,
+    };
+  }
+
+  return {
+    state: "none" as InventoryState,
+    label: undefined,
+    ownedCount,
+    total,
+  };
+}
+
 export function BrowseScreen({
   recipes,
   rateLimited = false,
@@ -47,8 +93,10 @@ export function BrowseScreen({
   const [plantQuery, setPlantQuery] = useState("");
   const [filter, setFilter] = useState("All");
   const [safetyOnly, setSafetyOnly] = useState(false);
+  const inventory = useInventory();
 
   const filters = useMemo(() => ["All", ...uniqueCategories(recipes)], [recipes]);
+  const inventorySlugs = useMemo(() => new Set(inventory.slugs), [inventory.slugs]);
 
   const visible = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -98,6 +146,32 @@ export function BrowseScreen({
       return matchesFilter && matchesSearch && matchesPlantTerms && matchesSafety;
     });
   }, [filter, plantQuery, recipes, safetyOnly, search]);
+
+  const visibleWithInventory = useMemo(() => {
+    if (inventory.count === 0) {
+      return visible.map((recipe) => ({
+        recipe,
+        match: getRecipeInventoryMatch(recipe, inventorySlugs),
+      }));
+    }
+
+    const ranked = visible.map((recipe, index) => {
+      const match = getRecipeInventoryMatch(recipe, inventorySlugs);
+      const rank =
+        match.state === "full" ? 0 : match.state === "partial" ? 1 : match.state === "none" ? 2 : 3;
+
+      return {
+        recipe,
+        match,
+        index,
+        rank,
+      };
+    });
+
+    ranked.sort((left, right) => left.rank - right.rank || left.index - right.index);
+
+    return ranked;
+  }, [inventory.count, inventorySlugs, visible]);
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-4">
@@ -151,9 +225,16 @@ export function BrowseScreen({
 
       {visible.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {visible.map((recipe) => {
+          {visibleWithInventory.map(({ recipe, match }) => {
             const primaryPlant = recipe.components[0]?.plant ?? null;
             const tierLabel = recipe.is_free ? "Free" : formatTierLabel(recipe.required_tier);
+            const inventoryProps =
+              inventory.count > 0
+                ? {
+                    inventoryState: match.state,
+                    inventoryLabel: match.label,
+                  }
+                : {};
 
             return (
               <RecipeCard
@@ -170,6 +251,7 @@ export function BrowseScreen({
                 ].filter(Boolean)}
                 hasWarning={hasSafetyConcern(recipe)}
                 href={`/recipes/${recipe.slug}`}
+                {...inventoryProps}
               />
             );
           })}
