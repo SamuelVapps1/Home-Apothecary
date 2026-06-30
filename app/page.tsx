@@ -183,7 +183,7 @@ export default async function HomePage() {
                     How access works
                   </p>
                   <h3 className="m-0 font-display text-4xl font-semibold leading-tight tracking-display text-[var(--text-primary)] sm:text-5xl">
-                    Three calm steps
+                    Three access steps
                   </h3>
                 </div>
 
@@ -250,7 +250,7 @@ export default async function HomePage() {
             <section className="flex flex-col items-center gap-4 text-center">
               <div className="max-w-2xl">
                 <h3 className="m-0 font-display text-4xl font-semibold leading-tight tracking-display text-[var(--text-primary)] sm:text-5xl">
-                  Keep your apothecary in one calm place.
+                  Keep your apothecary in one steady place.
                 </h3>
                 <p className="mt-3 mb-0 font-body text-base leading-relaxed text-[var(--text-secondary)]">
                   Profiles, recipes, and the access that holds them together.
