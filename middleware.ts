@@ -1,10 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createMiddlewareCookieAdapter, createServerClient } from "@/lib/supabase/server";
+import { createServerClient } from "@/lib/supabase/server";
 
 const protectedPrefixes = ["/browse", "/remedies", "/redeem", "/account"];
 
 function isProtectedPath(pathname: string) {
-  return protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+  return protectedPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
 }
 
 export async function middleware(request: NextRequest) {
@@ -12,15 +14,24 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const response = NextResponse.next({
+  let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  const supabase = await createServerClient(
-    await createMiddlewareCookieAdapter(request, response),
-  );
+  const supabase = await createServerClient({
+    getAll() {
+      return request.cookies.getAll();
+    },
+    setAll(cookiesToSet) {
+      cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+      response = NextResponse.next({ request });
+      cookiesToSet.forEach(({ name, value, options }) =>
+        response.cookies.set(name, value, options),
+      );
+    },
+  });
 
   const {
     data: { user },
