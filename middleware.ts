@@ -8,15 +8,11 @@ function isProtectedPath(pathname: string) {
 }
 
 export async function middleware(request: NextRequest) {
-  if (!isProtectedPath(request.nextUrl.pathname)) {
-    return NextResponse.next();
-  }
-
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     return NextResponse.next();
   }
 
-  let response = NextResponse.next({
+  const response = NextResponse.next({
     request: {
       headers: request.headers,
     },
@@ -30,15 +26,24 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (isProtectedPath(request.nextUrl.pathname) && !user) {
     const redirectUrl = new URL("/onboarding", request.url);
     redirectUrl.searchParams.set("next", request.nextUrl.pathname);
-    response = NextResponse.redirect(redirectUrl);
+
+    const redirectResponse = NextResponse.redirect(redirectUrl);
+
+    response.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie);
+    });
+
+    return redirectResponse;
   }
 
   return response;
 }
 
 export const config = {
-  matcher: ["/browse/:path*", "/remedies/:path*", "/redeem"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|auth(?:/.*)?|api(?:/.*)?|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|woff|woff2)$).*)",
+  ],
 };
