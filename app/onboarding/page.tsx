@@ -1,4 +1,4 @@
-import { MagicLinkForm } from "@/components/auth/MagicLinkForm";
+import { AuthForm } from "@/components/auth/AuthForm";
 import { Button } from "@/components/core/Button";
 import { BrandMark } from "@/components/decorative/BrandMark";
 import { BotanicalDivider } from "@/components/decorative/BotanicalDivider";
@@ -32,9 +32,9 @@ export default async function OnboardingPage({
         <header className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2.5 outline-none focus-visible:shadow-amber">
             <BrandMark className="h-7 w-7 shrink-0" />
-            <h1 className="m-0 font-display text-4xl font-bold tracking-display text-[var(--text-primary)]">
-              Enter with a magic link.
-            </h1>
+              <h1 className="m-0 font-display text-4xl font-bold tracking-display text-[var(--text-primary)]">
+                Sign in with Google or email.
+              </h1>
           </Link>
 
           <nav className="hidden items-center gap-1 rounded-pill border border-[var(--border-subtle)] bg-[rgba(240,232,208,0.05)] p-1 md:flex">
@@ -51,13 +51,13 @@ export default async function OnboardingPage({
         </header>
 
         <p className="m-0 font-body text-base leading-relaxed text-[var(--text-secondary)]">
-          Educational only, not medical advice. Sign in by email link to open your account.
+          Educational only, not medical advice. Continue with Google or create an account with your email.
         </p>
 
         <BotanicalDivider className="h-7 w-full text-[var(--color-amber-500)] opacity-80" />
 
         <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 shadow-md">
-          <MagicLinkForm nextPath={nextPath} />
+          <AuthForm nextPath={nextPath} />
         </div>
 
         <section className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 shadow-md">
@@ -65,8 +65,8 @@ export default async function OnboardingPage({
             Purchase flow
           </p>
           <p className="mt-2 mb-0 max-w-prose font-body text-sm leading-relaxed text-[var(--text-secondary)]">
-            Buy access, get your key by email, sign in with the link above, then unlock the full
-            recipes when you redeem it.
+            Buy access, get your key by email, then sign in with Google or email and unlock the
+            full recipes when you redeem it.
           </p>
           {checkoutUrl ? (
             <div className="mt-4">

@@ -12,7 +12,7 @@ function truncateSummary(value: string, maxLength: number) {
     return value;
   }
 
-  return `${value.slice(0, Math.max(0, maxLength - 1)).trimEnd()}…`;
+  return `${value.slice(0, Math.max(0, maxLength - 1)).trimEnd()}...`;
 }
 
 export default async function HomePage() {
@@ -85,7 +85,7 @@ export default async function HomePage() {
                   </h2>
                   <p className="mt-4 mb-0 max-w-prose font-body text-lg leading-relaxed text-[var(--text-secondary)] sm:text-[20px]">
                     Considered plant profiles and traditional-use recipes, each one sourced and
-                    kept with care. Buy a key, sign in by email, and the full cabinet opens.
+                    kept with care. Buy a key, sign in with Google or email, and the full cabinet opens.
                   </p>
                 </div>
 
@@ -196,8 +196,8 @@ export default async function HomePage() {
                     },
                     {
                       step: "2",
-                      title: "Sign in by email",
-                      body: "No passwords. A single magic link opens your account.",
+                      title: "Sign in with Google or email",
+                      body: "Use Google or create an account with your email and password.",
                     },
                     {
                       step: "3",
@@ -341,7 +341,7 @@ export default async function HomePage() {
                   </Button>
                 ) : (
                   <Button href="/onboarding" fullWidth size="lg">
-                    Start with magic link
+                    Continue with Google or email
                   </Button>
                 )}
                 <Button href="/library" fullWidth size="lg" variant="secondary">

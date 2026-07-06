@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import type { ChangeEventHandler, ReactNode } from "react";
+import type { ChangeEventHandler, InputHTMLAttributes, ReactNode } from "react";
 
 export function Input({
   label,
@@ -13,6 +13,7 @@ export function Input({
   leadingIcon,
   hint,
   className,
+  ...inputProps
 }: {
   label?: string;
   placeholder?: string;
@@ -22,7 +23,7 @@ export function Input({
   leadingIcon?: ReactNode;
   hint?: string;
   className?: string;
-}) {
+} & InputHTMLAttributes<HTMLInputElement>) {
   const [focused, setFocused] = useState(false);
 
   return (
@@ -60,6 +61,7 @@ export function Input({
           placeholder={placeholder}
           type={type}
           value={value}
+          {...inputProps}
         />
       </div>
 

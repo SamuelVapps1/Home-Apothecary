@@ -18,8 +18,8 @@ export default function RedeemPage() {
             Enter the license key from your email.
           </h1>
           <p className="mt-3 mb-0 max-w-prose font-body text-base leading-relaxed text-[var(--text-secondary)]">
-            Buy access, receive a license key by email, sign in with your magic link, then redeem
-            the key here. Access activates on your account after a successful redemption.
+            Buy access, receive a license key by email, then sign in with Google or email and
+            redeem the key here. Access activates on your account after a successful redemption.
           </p>
 
           <div className="mt-4 flex flex-wrap gap-2">
@@ -40,8 +40,8 @@ export default function RedeemPage() {
             Buy flow
           </p>
           <p className="mt-2 mb-0 max-w-prose font-body text-sm leading-relaxed text-[var(--text-secondary)]">
-            Buy access, receive your license key by email, sign in with a magic link, then redeem
-            the key on this page. If you already have a key, redeem it above.
+            Buy access, receive your license key by email, then sign in with Google or email and
+            redeem the key on this page. If you already have a key, redeem it above.
           </p>
           {checkoutUrl ? (
             <div className="mt-4">
