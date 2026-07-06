@@ -26,7 +26,6 @@ export default function DebugCookiesPage() {
   };
 
   useEffect(() => {
-    read();
     const id = setInterval(read, 1000);
     return () => clearInterval(id);
   }, []);
