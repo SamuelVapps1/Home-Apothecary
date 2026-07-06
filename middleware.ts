@@ -1,3 +1,9 @@
+// middleware.ts
+// FIX: middleware uz nikdy nepropaguje MAZANIE auth cookies do browsera.
+// Mazanie sessions patri vylucne do /auth/logout. Middleware len gatuje.
+// + INSTRUMENTACIA: docasne logovanie do Vercel logs (tag "mw-auth").
+//   Po potvrdeni root cause console.log blok zmazat.
+
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@/lib/supabase/server";
 
@@ -20,14 +26,27 @@ export async function middleware(request: NextRequest) {
     },
   });
 
+  const attemptedWrites: { name: string; deletion: boolean }[] = [];
+
   const supabase = await createServerClient({
     getAll() {
       return request.cookies.getAll();
     },
     setAll(cookiesToSet) {
-      cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+      cookiesToSet.forEach(({ name, value }) =>
+        attemptedWrites.push({ name, deletion: value === "" }),
+      );
+
+      // GUARD: prazdna hodnota = pokus o delete session cookie.
+      // Middleware to NIKDY neprepusti do browsera.
+      const writes = cookiesToSet.filter(({ value }) => value !== "");
+      if (writes.length === 0) {
+        return;
+      }
+
+      writes.forEach(({ name, value }) => request.cookies.set(name, value));
       response = NextResponse.next({ request });
-      cookiesToSet.forEach(({ name, value, options }) =>
+      writes.forEach(({ name, value, options }) =>
         response.cookies.set(name, value, options),
       );
     },
@@ -35,7 +54,23 @@ export async function middleware(request: NextRequest) {
 
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser();
+
+  // INSTRUMENTACIA - docasne, po vyrieseni zmazat
+  console.log(
+    JSON.stringify({
+      tag: "mw-auth",
+      path: request.nextUrl.pathname,
+      cookiesIn: request.cookies
+        .getAll()
+        .filter((c) => c.name.startsWith("sb-"))
+        .map((c) => `${c.name}(${c.value.length})`),
+      userId: user?.id ?? null,
+      authError: error ? `${error.status ?? "?"} ${error.message}` : null,
+      attemptedWrites,
+    }),
+  );
 
   if (isProtectedPath(request.nextUrl.pathname) && !user) {
     const redirectUrl = new URL("/onboarding", request.url);
