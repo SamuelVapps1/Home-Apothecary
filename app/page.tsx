@@ -1,5 +1,6 @@
 import { Badge } from "@/components/core/Badge";
 import { Button } from "@/components/core/Button";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 import { BotanicalDivider } from "@/components/decorative/BotanicalDivider";
 import { BrandMark } from "@/components/decorative/BrandMark";
 import { getCurrentAccount } from "@/lib/auth";
@@ -64,11 +65,7 @@ export default async function HomePage() {
               ))}
             </nav>
 
-            {isLoggedIn ? (
-              <Button href="/auth/logout" size="sm" variant="ghost">
-                Sign out
-              </Button>
-            ) : null}
+            {isLoggedIn ? <SignOutButton size="sm" /> : null}
           </div>
         </header>
 

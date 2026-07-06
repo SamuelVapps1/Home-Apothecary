@@ -2,6 +2,7 @@ import { AppShell } from "@/components/screens/AppShell";
 import { Badge } from "@/components/core/Badge";
 import { BotanicalDivider } from "@/components/decorative/BotanicalDivider";
 import { Button } from "@/components/core/Button";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 import { getCurrentAccount } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -58,9 +59,7 @@ export default async function AccountPage() {
           ) : null}
 
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <Button href="/auth/logout" variant="ghost">
-              Sign out
-            </Button>
+            <SignOutButton />
             <Button href="/browse" variant="secondary">
               Back to Browse
             </Button>

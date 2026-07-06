@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 import { BottomNav } from "@/components/core/BottomNav";
-import { Button } from "@/components/core/Button";
 import { BrandMark } from "@/components/decorative/BrandMark";
 import { BotanicalDivider } from "@/components/decorative/BotanicalDivider";
 import { getCurrentAccount } from "@/lib/auth";
@@ -66,11 +66,7 @@ export async function AppShell({
             </span>
           ) : null}
 
-          {user ? (
-            <Button href="/auth/logout" size="sm" variant="ghost">
-              Sign out
-            </Button>
-          ) : null}
+          {user ? <SignOutButton size="sm" /> : null}
         </div>
       </header>
 
