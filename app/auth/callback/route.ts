@@ -1,10 +1,24 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { NextResponse, type NextRequest } from "next/server";
 
+function isFirstLogin(createdAt: string | null | undefined) {
+  if (!createdAt) {
+    return false;
+  }
+
+  const createdAtMs = new Date(createdAt).getTime();
+  if (Number.isNaN(createdAtMs)) {
+    return false;
+  }
+
+  return Date.now() - createdAtMs <= 10 * 60 * 1000;
+}
+
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
   const nextPath = requestUrl.searchParams.get("next") ?? "/browse";
+  const welcomeUrl = new URL("/welcome", request.url);
   const redirectUrl = new URL(nextPath, request.url);
   const response = NextResponse.redirect(redirectUrl);
 
@@ -26,19 +40,30 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
       const fallbackUrl = new URL("/onboarding", request.url);
       fallbackUrl.searchParams.set("error", "auth_failed");
       return NextResponse.redirect(fallbackUrl);
     }
+
+    const user = data.session?.user ?? null;
+    const shouldSendToWelcome = Boolean(user && isFirstLogin(user.created_at));
+
+    if (shouldSendToWelcome && nextPath !== "/welcome") {
+      const welcomeResponse = NextResponse.redirect(welcomeUrl);
+      response.cookies.getAll().forEach((cookie) => {
+        welcomeResponse.cookies.set(cookie);
+      });
+      return welcomeResponse;
+    }
+
+    return response;
   } catch {
     const fallbackUrl = new URL("/onboarding", request.url);
     fallbackUrl.searchParams.set("error", "auth_failed");
     return NextResponse.redirect(fallbackUrl);
   }
-
-  return response;
 }
 

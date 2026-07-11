@@ -39,6 +39,19 @@ function formatAuthError(message: string, mode: Mode) {
   return message;
 }
 
+function isFirstLogin(createdAt: string | null | undefined) {
+  if (!createdAt) {
+    return false;
+  }
+
+  const createdAtMs = new Date(createdAt).getTime();
+  if (Number.isNaN(createdAtMs)) {
+    return false;
+  }
+
+  return Date.now() - createdAtMs <= 10 * 60 * 1000;
+}
+
 export function AuthForm({ nextPath = "/browse" }: { nextPath?: string }) {
   const configured = Boolean(getSupabaseConfig());
   const supabase = useMemo(() => (configured ? createBrowserClient() : null), [configured]);
@@ -183,7 +196,7 @@ export function AuthForm({ nextPath = "/browse" }: { nextPath?: string }) {
         }
 
         if (data.session) {
-          router.replace(getAuthNextPath());
+          router.replace(isFirstLogin(data.session.user.created_at) ? "/welcome" : getAuthNextPath());
           router.refresh();
           return;
         }
