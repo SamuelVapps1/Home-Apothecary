@@ -89,6 +89,10 @@ export function AuthForm({ nextPath = "/browse" }: { nextPath?: string }) {
     return `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
   }
 
+  function getAuthNextPath() {
+    return mode === "signup" ? "/welcome" : nextPath;
+  }
+
   async function handleGoogleSignIn() {
     clearStatus();
 
@@ -100,10 +104,11 @@ export function AuthForm({ nextPath = "/browse" }: { nextPath?: string }) {
     setLoading(true);
 
     try {
+      const authNextPath = getAuthNextPath();
       const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: buildCallbackUrl(nextPath),
+          redirectTo: buildCallbackUrl(authNextPath),
         },
       });
 
@@ -178,7 +183,7 @@ export function AuthForm({ nextPath = "/browse" }: { nextPath?: string }) {
         }
 
         if (data.session) {
-          router.replace(nextPath);
+          router.replace(getAuthNextPath());
           router.refresh();
           return;
         }
@@ -191,7 +196,7 @@ export function AuthForm({ nextPath = "/browse" }: { nextPath?: string }) {
         email,
         password,
         options: {
-          emailRedirectTo: buildCallbackUrl(nextPath),
+          emailRedirectTo: buildCallbackUrl("/welcome"),
         },
       });
 
@@ -201,7 +206,7 @@ export function AuthForm({ nextPath = "/browse" }: { nextPath?: string }) {
       }
 
       if (data.session) {
-        router.replace(nextPath);
+        router.replace("/welcome");
         router.refresh();
         return;
       }

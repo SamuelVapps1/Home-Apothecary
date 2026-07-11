@@ -5,6 +5,7 @@ import { Input } from "@/components/core/Input";
 import { RecipeCard } from "@/components/core/RecipeCard";
 import { useInventory } from "@/components/hooks/useInventory";
 import { Tag } from "@/components/core/Tag";
+import { getRecipeInventoryMatch } from "@/lib/inventory-match";
 import type { RecipeDetail } from "@/types";
 import { Search, ShieldAlert } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -35,51 +36,6 @@ function splitTerms(value: string) {
 
 function formatTierLabel(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
-}
-
-type InventoryState = "full" | "partial" | "none" | "neutral";
-
-function getRecipeInventoryMatch(recipe: RecipeDetail, inventorySlugs: Set<string>) {
-  const required = Array.from(
-    new Set(recipe.components.map((component) => component.plant?.slug).filter(Boolean)),
-  ) as string[];
-  const total = required.length;
-
-  if (total === 0) {
-    return {
-      state: "neutral" as InventoryState,
-      label: undefined,
-      ownedCount: 0,
-      total,
-    };
-  }
-
-  const ownedCount = required.filter((slug) => inventorySlugs.has(slug)).length;
-
-  if (ownedCount === total) {
-    return {
-      state: "full" as InventoryState,
-      label: "You can make this",
-      ownedCount,
-      total,
-    };
-  }
-
-  if (ownedCount > 0) {
-    return {
-      state: "partial" as InventoryState,
-      label: `${ownedCount} of ${total} ingredients`,
-      ownedCount,
-      total,
-    };
-  }
-
-  return {
-    state: "none" as InventoryState,
-    label: undefined,
-    ownedCount,
-    total,
-  };
 }
 
 export function BrowseScreen({
