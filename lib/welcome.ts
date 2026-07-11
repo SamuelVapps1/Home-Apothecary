@@ -8,12 +8,11 @@ export interface WelcomePlant {
   name_latin: string;
 }
 
-export interface WelcomeRecipe {
-  slug: string;
-  title: string;
-  required_tier: Tier;
+export type WelcomeRecipe = {
   plantSlugs: string[];
-}
+  required_tier: Tier;
+  is_free: boolean;
+};
 
 export interface WelcomeData {
   plants: WelcomePlant[];
@@ -22,8 +21,7 @@ export interface WelcomeData {
 
 const plantSelect = "slug,common_name,name_latin";
 const recipeSelect = `
-  slug,
-  title,
+  is_free,
   required_tier,
   recipe_components (
     plant:plants (
@@ -81,7 +79,7 @@ function normalizeRecipe(value: unknown): WelcomeRecipe | null {
 
   const recipe = value as Record<string, unknown>;
 
-  if (typeof recipe.slug !== "string" || typeof recipe.title !== "string" || !recipe.required_tier) {
+  if (typeof recipe.is_free !== "boolean" || !recipe.required_tier) {
     return null;
   }
 
@@ -96,20 +94,22 @@ function normalizeRecipe(value: unknown): WelcomeRecipe | null {
     : [];
 
   return {
-    slug: recipe.slug,
-    title: recipe.title,
-    required_tier: normalizeTier(recipe.required_tier),
     plantSlugs,
+    required_tier: normalizeTier(recipe.required_tier),
+    is_free: recipe.is_free,
   };
 }
 
-function sortByName<T extends { common_name?: string; title?: string }>(left: T, right: T) {
-  const leftName = left.common_name ?? left.title ?? "";
-  const rightName = right.common_name ?? right.title ?? "";
+function sortByName<T extends { common_name?: string }>(left: T, right: T) {
+  const leftName = left.common_name ?? "";
+  const rightName = right.common_name ?? "";
   return leftName.localeCompare(rightName);
 }
 
 export async function getWelcomeData(): Promise<WelcomeData> {
+  // Service-role is used here ONLY because RLS row-hides locked recipes; the select is
+  // intentionally restricted to non-content match-shape fields; replacing this with a
+  // SECURITY DEFINER RPC is a planned follow-up migration.
   if (!getSupabaseConfig() || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
     return { plants: [], recipes: [] };
   }
@@ -119,7 +119,7 @@ export async function getWelcomeData(): Promise<WelcomeData> {
 
     const [plantsResult, recipesResult] = await Promise.all([
       supabase.from("plants").select(plantSelect).order("common_name"),
-      supabase.from("recipes").select(recipeSelect).order("title"),
+      supabase.from("recipes").select(recipeSelect),
     ]);
 
     if (plantsResult.error || recipesResult.error) {
@@ -139,7 +139,7 @@ export async function getWelcomeData(): Promise<WelcomeData> {
 
     return {
       plants: plants.sort(sortByName),
-      recipes: recipes.sort(sortByName),
+      recipes,
     };
   } catch {
     return { plants: [], recipes: [] };
